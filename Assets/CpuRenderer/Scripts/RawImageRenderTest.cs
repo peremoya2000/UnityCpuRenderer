@@ -1,4 +1,5 @@
 using Unity.Collections;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -8,12 +9,44 @@ public class RawImageRenderTest : MonoBehaviour
     private const int TILE_SIZE = 32;
     private const int CACHE_LINE_PADDING = 16;
 
+    private static readonly float3[] CubeVertices =
+    {
+        new(-1f, -1f, -1f), // 0
+        new( 1f, -1f, -1f), // 1
+        new(-1f,  1f, -1f), // 2
+        new( 1f,  1f, -1f), // 3
+        new(-1f, -1f,  1f), // 4
+        new( 1f, -1f,  1f), // 5
+        new(-1f,  1f,  1f), // 6
+        new( 1f,  1f,  1f), // 7
+    };
+
+    private static readonly int[] CubeIndices =
+    {
+        // -Z face
+        0, 2, 3,  0, 3, 1,
+        // +Z face
+        4, 5, 7,  4, 7, 6,
+        // -X face
+        0, 4, 6,  0, 6, 2,
+        // +X face
+        1, 3, 7,  1, 7, 5,
+        // -Y face
+        0, 1, 5,  0, 5, 4,
+        // +Y face
+        2, 6, 7,  2, 7, 3,
+    };
+
+
     public Vector2 RenderResolution = new Vector2(640, 360);
     public RawImage RawImage;
+    public Camera Camera;
 
     private Vector2Int paddedResolution;
     private Texture2D colorBuffer;
     private Vector2Int lastScreenSize;
+    private float4[] clipVerts;
+    private float2[] screenVerts;
 
     public int GetIntegerScaling()
     {
@@ -47,11 +80,17 @@ public class RawImageRenderTest : MonoBehaviour
         RawImage.rectTransform.pivot = Vector2.zero;
 
         UpdateRenderRectScale();
+
+        Debug.Assert(Camera != null, "Camera is not assigned.", this);
+        Camera.enabled = false;
+
+        clipVerts = new float4[CubeVertices.Length];
+        screenVerts = new float2[clipVerts.Length];
     }
 
     void Update()
     {
-        if(lastScreenSize.x != Screen.width || lastScreenSize.y != Screen.height)
+        if (lastScreenSize.x != Screen.width || lastScreenSize.y != Screen.height)
         {
             UpdateRenderRectScale();
         }
@@ -62,32 +101,40 @@ public class RawImageRenderTest : MonoBehaviour
         }
 
         NativeArray<Color32> pixels = colorBuffer.GetRawTextureData<Color32>();
-        for (int y = 0; y < paddedResolution.y; ++y)
+        for (int i = 0; i < pixels.Length; ++i)
         {
-            for (int x = 0; x < paddedResolution.x; ++x)
+            pixels[i] = new Color32(32, 32, 32, 255);
+        }
+
+        int2 renderSize = new int2((int)RenderResolution.x, (int)RenderResolution.y);
+
+        Matrix4x4 model = Matrix4x4.TRS(Vector3.zero, Quaternion.Euler(Time.time * 20f, Time.time * 30f, 0f), Vector3.one);
+        //Unity uses forward = Z, but Matrix4x4.Perspective expects forward = -Z, so we need to flip the Z axis in the view matrix.
+        Matrix4x4 view = Matrix4x4.Scale(new Vector3(1, 1, -1)) * Matrix4x4.TRS(Camera.transform.position, Camera.transform.rotation, Vector3.one).inverse;
+        Matrix4x4 perspective = Matrix4x4.Perspective(Camera.fieldOfView, RenderResolution.x / RenderResolution.y, Camera.nearClipPlane, 1000f);
+        float4x4 mvp = perspective * view * model;
+
+        for (int i = 0; i < CubeVertices.Length; ++i)
+        {
+            clipVerts[i] = math.mul(mvp, new float4(CubeVertices[i], 1f));
+        }
+        for (int i = 0; i < screenVerts.Length; ++i)
+        {
+            screenVerts[i] = new float2((clipVerts[i].x / clipVerts[i].w * 0.5f + 0.5f) * renderSize.x, (clipVerts[i].y / clipVerts[i].w * 0.5f + 0.5f) * renderSize.y);
+        }
+
+        for (int i = 0; i < CubeIndices.Length; i += 3)
+        {
+            int i0 = CubeIndices[i + 0];
+            int i1 = CubeIndices[i + 1];
+            int i2 = CubeIndices[i + 2];
+            float near = Camera.nearClipPlane;
+            if (clipVerts[i0].w < near || clipVerts[i1].w < near || clipVerts[i2].w < near)
             {
-                int index = y * paddedResolution.x + x;
-                if (x >= RenderResolution.x || y >= RenderResolution.y)
-                {
-                    pixels[index] = new Color32(255, 255, 0, 255);
-                }
-                else if (x == 0 || x == (int)RenderResolution.x - 1)
-                {
-                    pixels[index] = new Color32(255, 0, 0, 255);
-                }
-                else if (y == 0 || y == (int)RenderResolution.y - 1)
-                {
-                    pixels[index] = new Color32(0, 255, 0, 255);
-                }
-                else if (x < (int)RenderResolution.x / 2)
-                {
-                    pixels[index] = StripeColor(x);
-                }
-                else
-                {
-                    pixels[index] = StripeColor(y);
-                }
+                continue;
             }
+            Color32 color = StripeColor(1 + i / 3);
+            Rasterizer.DrawTriangle(pixels, paddedResolution.x, renderSize, screenVerts[i0], screenVerts[i1], screenVerts[i2], color);
         }
 
         colorBuffer.Apply(false, false);
