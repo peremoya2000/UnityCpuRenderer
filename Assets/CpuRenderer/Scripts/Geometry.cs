@@ -1,83 +1,87 @@
+using Unity.Collections;
 using Unity.Mathematics;
 
 public static class Geometry
 {
-    public static int ClipTriangle(float4 v0, float4 v1, float4 v2, float near, float4[] output)
+    public static FixedList512Bytes<float4> ClipTriangle(float4 v0, float4 v1, float4 v2, float near, float guardBandScale)
     {
-        bool3 inside = new(v0.w >= near, v1.w >= near, v2.w >= near);
-        int insideCount = (inside.x ? 1 : 0) + (inside.y ? 1 : 0) + (inside.z ? 1 : 0);
-        if (insideCount == 0)
-        {
-            return 0;
-        }
-        if (insideCount == 3)
-        {
-            output[0] = v0;
-            output[1] = v1;
-            output[2] = v2;
-            return 1;
-        }
-        if (insideCount == 1)
-        {
-            output[0] = v0;
-            output[1] = v1;
-            output[2] = v2;
+        FixedList512Bytes<float4> polygon = default;
+        if (IsOffScreen(v0, v1, v2)) return polygon;
 
-            int timesToRotate = GetIndexOfDifferent(inside);
-            RotateVertices(output, timesToRotate);
+        polygon.Add(v0);
+        polygon.Add(v1);
+        polygon.Add(v2);
 
-            output[1] = IntersectNear(output[0], output[1], near);
-            output[2] = IntersectNear(output[0], output[2], near);
-            return 1;
-        }
-        if (insideCount == 2)
-        {
-            output[0] = v0;
-            output[1] = v1;
-            output[2] = v2;
+        polygon = ClipAgainstPlane(polygon, new float4(0f, 0f, 0f, 1f), near);
+        if (!HasVertexOutsideGuardBand(polygon, guardBandScale)) return polygon;
 
-            int timesToRotate = (GetIndexOfDifferent(inside) + 1) % 3;
-            RotateVertices(output, timesToRotate);
-
-            float4 ia = IntersectNear(output[0], output[2], near);
-            float4 ib = IntersectNear(output[1], output[2], near);
-            output[2] = ib;
-
-            output[3] = output[0];
-            output[4] = ib;
-            output[5] = ia;
-
-            return 2;
-        }
-
-        return -1;
+        polygon = ClipAgainstPlane(polygon, new float4(-1f, 0f, 0f, guardBandScale));
+        polygon = ClipAgainstPlane(polygon, new float4(1f, 0f, 0f, guardBandScale));
+        polygon = ClipAgainstPlane(polygon, new float4(0f, -1f, 0f, guardBandScale));
+        polygon = ClipAgainstPlane(polygon, new float4(0f, 1f, 0f, guardBandScale));
+        return polygon;
     }
 
-    private static float4 IntersectNear(float4 inside, float4 outside, float near)
+
+    private static bool IsOffScreen(float4 v0, float4 v1, float4 v2)
     {
-        float t = (near - inside.w) / (outside.w - inside.w);
-        return math.lerp(inside, outside, t);
+        float3 x = new(v0.x, v1.x, v2.x);
+        float3 y = new(v0.y, v1.y, v2.y);
+        float3 w = new(v0.w, v1.w, v2.w);
+        return math.all(x > w) || math.all(x < -w) || math.all(y > w) || math.all(y < -w);
     }
 
-    private static int GetIndexOfDifferent(bool3 inside)
+    private static bool HasVertexOutsideGuardBand(FixedList512Bytes<float4> polygon, float guardBandScale)
     {
-        bool firstTwoSame = inside.x == inside.y;
-        bool lastTwoSame = inside.y == inside.z;
-
-        if (firstTwoSame && lastTwoSame) return -1;
-        if (firstTwoSame) return 2;
-        if (lastTwoSame) return 0;
-        return 1;
-    }
-
-    private static void RotateVertices(float4[] vertices, int times)
-    {
-        for (int i = 0; i < times; ++i)
+        for (int i = 0; i < polygon.Length; ++i)
         {
-            float4 temp = vertices[0];
-            vertices[0] = vertices[1];
-            vertices[1] = vertices[2];
-            vertices[2] = temp;
+            float4 v = polygon[i];
+            if (math.any(math.abs(v.xy) > guardBandScale * v.w))
+            {
+                return true;
+            }
         }
+
+        return false;
+    }
+
+    private static FixedList512Bytes<float4> ClipAgainstPlane(FixedList512Bytes<float4> input, float4 planeNormal, float planeDistance = 0f)
+    {
+        FixedList512Bytes<float4> output = default;
+        for (int i = 0; i < input.Length; ++i)
+        {
+            float4 current = input[i];
+            float4 next = input[(i + 1) % input.Length];
+            float currentD = math.dot(planeNormal, current) - planeDistance;
+            float nextD = math.dot(planeNormal, next) - planeDistance;
+            bool currentInside = currentD >= 0f;
+            bool nextInside = nextD >= 0f;
+
+            //We keep 2 types of verts: the ones that are inside
+            if (currentInside)
+            {
+                output.Add(current);
+            }
+            //and we also keep the intersection point if the plane happens to be between the current and next vert
+            if (currentInside != nextInside)
+            {
+                if (currentInside)
+                {
+                    //inside to outside edge
+                    output.Add(Intersect(current, next, currentD, nextD));
+                }
+                else
+                {
+                    //outside to inside edge
+                    output.Add(Intersect(next, current, nextD, currentD));
+                }
+            }
+        }
+        return output;
+    }
+
+    private static float4 Intersect(float4 inside, float4 outside, float insideD, float outsideD)
+    {
+        return math.lerp(inside, outside, insideD / (insideD - outsideD));
     }
 }

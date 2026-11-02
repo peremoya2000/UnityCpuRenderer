@@ -47,7 +47,6 @@ public class RawImageRenderTest : MonoBehaviour
     private NativeArray<float> depthBuffer;
     private Vector2Int lastScreenSize;
     private float4[] clipSpaceVerts;
-    private float4[] clippedTrianglesResult;
     private float3[] cubeNormals;
 
     public int GetIntegerScaling()
@@ -70,6 +69,7 @@ public class RawImageRenderTest : MonoBehaviour
     {
         paddedResolution.x = (int)(Mathf.Ceil(RenderResolution.x / TILE_SIZE) * TILE_SIZE + CACHE_LINE_PADDING);
         paddedResolution.y = (int)(Mathf.Ceil(RenderResolution.y / TILE_SIZE) * TILE_SIZE);
+        Rasterizer.AssertEdgeValuesFitInt32(new int2((int)RenderResolution.x, (int)RenderResolution.y));
 
         colorBuffer = new Texture2D(paddedResolution.x, paddedResolution.y, TextureFormat.RGBA32, false, false);
         colorBuffer.filterMode = FilterMode.Point;
@@ -89,7 +89,6 @@ public class RawImageRenderTest : MonoBehaviour
         Camera.enabled = false;
 
         clipSpaceVerts = new float4[CubeVertices.Length];
-        clippedTrianglesResult = new float4[6];
         CalculateCubeNormals();
 #if UNITY_EDITOR
         GeometryTests.Run();
@@ -115,13 +114,22 @@ public class RawImageRenderTest : MonoBehaviour
             depthBuffer[i] = 0f;
         }
 
-        int2 renderSize = new int2((int)RenderResolution.x, (int)RenderResolution.y);
+        Framebuffer framebuffer = new Framebuffer
+        {
+            Color = pixels,
+            InvDepth = depthBuffer,
+            BufferWidth = paddedResolution.x,
+            RenderSize = new int2((int)RenderResolution.x, (int)RenderResolution.y),
+        };
 
         Matrix4x4 model0 = Matrix4x4.TRS(Vector3.zero, Quaternion.Euler(Time.time * 20f, Time.time * 30f, 0f), Vector3.one);
         Matrix4x4 model1 = Matrix4x4.TRS(new Vector3(2, 0, 2), Quaternion.Euler(Time.time * 2f, Time.time * 3f, 0f), new Vector3(1, 2, 1));
 
-        RenderCube(model0, pixels, renderSize);
-        RenderCube(model1, pixels, renderSize);
+        Matrix4x4 floorModel = Matrix4x4.TRS(new Vector3(0f, -3f, 0f), Quaternion.identity, new Vector3(100f, 0.1f, 100f));
+        RenderCube(floorModel, framebuffer);
+
+        RenderCube(model0, framebuffer);
+        RenderCube(model1, framebuffer);
 
         if (Keyboard.current.dKey.isPressed)
         {
@@ -135,7 +143,7 @@ public class RawImageRenderTest : MonoBehaviour
         colorBuffer.Apply(false, false);
     }
 
-    private void RenderCube(Matrix4x4 modelMatrix, NativeArray<Color32> pixels, int2 renderSize)
+    private void RenderCube(Matrix4x4 modelMatrix, Framebuffer framebuffer)
     {
         //Unity uses forward = Z, but Matrix4x4.Perspective expects forward = -Z, so we need to flip the Z axis in the view matrix.
         Matrix4x4 view = Matrix4x4.Scale(new Vector3(1, 1, -1)) * Matrix4x4.TRS(Camera.transform.position, Camera.transform.rotation, Vector3.one).inverse;
@@ -159,17 +167,9 @@ public class RawImageRenderTest : MonoBehaviour
             {
                 continue;
             }
-            
-            int triangleCount = Geometry.ClipTriangle(clipSpaceVerts[i0], clipSpaceVerts[i1], clipSpaceVerts[i2], near, clippedTrianglesResult);
-            Color32 color = StripeColor(1 + i / 3);
 
-            for (int j = 0; j < triangleCount; ++j)
-            {
-                float3 screen0 = Rasterizer.ProjectToScreen(clippedTrianglesResult[j * 3 + 0], renderSize);
-                float3 screen1 = Rasterizer.ProjectToScreen(clippedTrianglesResult[j * 3 + 1], renderSize);
-                float3 screen2 = Rasterizer.ProjectToScreen(clippedTrianglesResult[j * 3 + 2], renderSize);
-                Rasterizer.DrawTriangle(pixels, depthBuffer, paddedResolution.x, renderSize, screen0, screen1, screen2, color);
-            }
+            FixedList512Bytes<float4> polygon = Geometry.ClipTriangle(clipSpaceVerts[i0], clipSpaceVerts[i1], clipSpaceVerts[i2], near, Rasterizer.GUARD_BAND_SCALE);
+            Rasterizer.DrawPolygon(framebuffer, polygon, StripeColor(1 + i / 3));
         }
     }
 

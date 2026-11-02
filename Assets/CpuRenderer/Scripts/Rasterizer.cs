@@ -4,14 +4,33 @@ using UnityEngine;
 
 public static class Rasterizer
 {
+    public const float GUARD_BAND_SCALE = 2f;
     private const int SUBPIXEL_BITS = 4;
     private const int SUBPIXEL_SCALE = 1 << SUBPIXEL_BITS;
     private const int HALF_PIXEL = SUBPIXEL_SCALE / 2;
 
-    private static readonly float4[] clippingResult = new float4[6];
+    public static void AssertEdgeValuesFitInt32(int2 renderSize)
+    {
+        long maxXDifference = (long)(GUARD_BAND_SCALE * renderSize.x * SUBPIXEL_SCALE);
+        long maxYDifference = (long)(GUARD_BAND_SCALE * renderSize.y * SUBPIXEL_SCALE);
+        long maxEdgeValue = 2 * maxXDifference * maxYDifference;
+        Debug.Assert(maxEdgeValue <= int.MaxValue, $"Max edge value {maxEdgeValue} overflows int32.");
+    }
 
-    public static void DrawTriangle(NativeArray<Color32> colorBuffer, NativeArray<float> invDepthBuffer, int bufferWidth, int2 renderSize,
-                                    float3 v0, float3 v1, float3 v2, Color32 color)
+    public static void DrawPolygon(Framebuffer framebuffer, FixedList512Bytes<float4> polygon, Color32 color)
+    {
+        int triangleCount = polygon.Length - 2;
+        for (int i = 0; i < triangleCount; ++i)
+        {
+            float3 screen0 = ProjectToScreen(polygon[0], framebuffer.RenderSize);
+            float3 screen1 = ProjectToScreen(polygon[i + 1], framebuffer.RenderSize);
+            float3 screen2 = ProjectToScreen(polygon[i + 2], framebuffer.RenderSize);
+            DrawTriangle(framebuffer, screen0, screen1, screen2, color);
+        }
+    }
+
+
+    private static void DrawTriangle(Framebuffer framebuffer, float3 v0, float3 v1, float3 v2, Color32 color)
     {
         int2 v0i = (int2)math.round(v0.xy * SUBPIXEL_SCALE);
         int2 v1i = (int2)math.round(v1.xy * SUBPIXEL_SCALE);
@@ -32,9 +51,9 @@ public static class Rasterizer
         int bias2 = IsTopOrLeft(v0i, v1i) ? 0 : -1;
 
         int minX = math.max(0, math.min(v0i.x, math.min(v1i.x, v2i.x)) >> SUBPIXEL_BITS);
-        int maxX = math.min(renderSize.x - 1, math.max(v0i.x, math.max(v1i.x, v2i.x)) >> SUBPIXEL_BITS);
+        int maxX = math.min(framebuffer.RenderSize.x - 1, math.max(v0i.x, math.max(v1i.x, v2i.x)) >> SUBPIXEL_BITS);
         int minY = math.max(0, math.min(v0i.y, math.min(v1i.y, v2i.y)) >> SUBPIXEL_BITS);
-        int maxY = math.min(renderSize.y - 1, math.max(v0i.y, math.max(v1i.y, v2i.y)) >> SUBPIXEL_BITS);
+        int maxY = math.min(framebuffer.RenderSize.y - 1, math.max(v0i.y, math.max(v1i.y, v2i.y)) >> SUBPIXEL_BITS);
 
         float invArea = 1.0f / area;
         for (int y = minY; y <= maxY; ++y)
@@ -48,23 +67,23 @@ public static class Rasterizer
 
                 if (e0 + bias0 >= 0 && e1 + bias1 >= 0 && e2 + bias2 >= 0)
                 {
-                    int index = y * bufferWidth + x;
+                    int index = y * framebuffer.BufferWidth + x;
 
                     float b0 = e0 * invArea;
                     float b1 = e1 * invArea;
                     float b2 = e2 * invArea;
                     float invW = b0 * v0.z + b1 * v1.z + b2 * v2.z;
-                    if (invW > invDepthBuffer[index])
+                    if (invW > framebuffer.InvDepth[index])
                     {
-                        colorBuffer[index] = color;
-                        invDepthBuffer[index] = invW;
+                        framebuffer.Color[index] = color;
+                        framebuffer.InvDepth[index] = invW;
                     }
                 }
             }
         }
     }
 
-    public static float3 ProjectToScreen(float4 clip, int2 renderSize)
+    private static float3 ProjectToScreen(float4 clip, int2 renderSize)
     {
         float invW = 1f / clip.w;
         float3 ndc = clip.xyz * invW;
