@@ -68,14 +68,14 @@ Ordering rationale — everything cheap that can reject a triangle happens befor
   current keyframes, then recompute each triangle's face normal by cross product. From there they
   take the rigid-prop path. Their frustum-cull bounds must enclose every pose of the clip.
 
-- **Backface culling needs no projection.** The geometric face normal is baked per triangle, and
-  static geometry is already in world space, so `dot(faceNormal, vertex - camPos) > 0` is one dot product on data requiring no per-frame transform. It rejects ~half the triangles before clip, projection, setup, and binning. (Equivalent to the screen-space signed-area test under perspective.) Props transform the camera into local space instead of transforming the normal; that stays correct under mirroring, because which side of a plane the camera is on survives any transform.
+- **Backface culling needs no projection.** Each triangle's face normal is stored in its mesh's local space, and
+  the camera is brought into each object's local space once per frame, so `dot(faceNormal, vertex - localCamPos) > 0` is one dot product on data requiring no per-frame transform. It rejects ~half the triangles before clip, projection, setup, and binning. (Equivalent to the screen-space signed-area test under perspective.) Transforming the camera instead of the normal stays correct under mirroring, because which side of a plane the camera is on survives any transform.
 - **Two-sided surfaces** skip that test. Instead, when the camera is behind the face, the stage negates
   the normal. That is the whole two-sided feature: setup is orientation-agnostic (Rasterizer details),
   so nothing downstream knows a triangle was two-sided.
 - **Off-screen triangles are rejected before clipping.** If all three clip-space vertices lie beyond the same screen edge (`x > w` for all three, or `x < -w`, `y > w`, `y < -w`), no pixel can land on screen. Three vertices are enough because a triangle stays inside any half-space that holds its corners, and that holds for `w < 0` too, so the test runs ahead of the near clip with no divide. It tests the screen rather than the guard band: it asks whether anything is visible, while the guard band asks whether coordinates fit. A triangle that wraps a screen corner passes the test and is handled by the bbox and edge tests, which is correct and rare.
-- **The stage outputs each survivor's world-space shading normal** — static ones as baked, props'
-  carried by the inverse-transpose of the prop's 3×3 matrix and normalized. After culling and the
+- **The stage outputs each survivor's world-space shading normal** — the local normal
+  carried by the inverse-transpose of the object's 3×3 matrix and normalized. After culling and the
   two-sided flip, every shading normal faces the camera.
 - **Transform every vertex of each frustum-visible object**, once per vertex rather than per triangle
   corner. Backface culling does not reduce this; a vertex-liveness pass would, but only if a profile
@@ -209,7 +209,7 @@ the upscale happens in the display. The tile-boundary rule below is therefore fo
 - Evaluate edges 4 pixels at a time with `float4`/`int4` from `Unity.Mathematics`. Depth test is a mask, not a branch.
   8-wide needs Burst's `v256` AVX2 intrinsics plus a 4-wide fallback — an optional later path.
 - **One normal per triangle, from the cross product of two edges** in the mesh's own local winding —
-  baked for static geometry (carried to world space at bake, §7) and rigid props (local space),
+  computed once per mesh when it enters the mesh library (local space, §7),
   recomputed each frame for vertex-animated props after the lerp. It serves both backface culling and shading, so the two
   can never disagree: a mis-wound triangle is culled and renders as a *hole*, never as a visible face
   lit from the wrong side. There is no normal vertex attribute and no normal interpolator.
@@ -545,13 +545,11 @@ The invariant that matters is not "the runtime ignores the scene" — it is that
 
 ### Bake output (immutable blob asset)
 
-- SoA vertex/index buffers for static geometry, pre-transformed to world space.
-  **Static = Unity's Static flag**; every other GameObject with a mesh is a prop. Prop geometry is
-  not baked: it is read live into the mesh library (Live gather), which is what lets prefabs be
-  instantiated at runtime.
-- Per static GameObject: its vertex range, index range and world-space AABB, stored SoA — the AABB
-  for frustum culling (§8), the vertex range so only its own vertices are transformed (§3)
-- Per-triangle face normals (backface culling *and* shading, §3) and surface descriptor index
+- **No geometry.** Every mesh, Static or not, is read live into the mesh library (Live gather), which
+  is what lets prefabs be instantiated at runtime. **Static = Unity's Static flag**: it marks what
+  Unity's lightmapper bakes, and promises the object never moves, which baked visibility depends on
+  (§4). Pre-transforming static geometry to world space is deferred (§9).
+- Per-triangle surface descriptor index
 - POT textures with mip chains, indexed by ID (**no atlasing** — see gotcha below)
 - Baked vertex-keyframe animation clips
 - Per-surface descriptors: `{ surfaceType, textureId, twoSided, ignoresBlobs }`
@@ -565,8 +563,7 @@ The invariant that matters is not "the runtime ignores the scene" — it is that
 - Ambient volume definitions — AABB plus sky and ground colour, smallest-containing wins (§4)
 
 **Winding and mirroring.** Face normals are always the cross product in the mesh's own local
-winding, taken to world space by the inverse-transpose of the object's 3×3 matrix — at bake for static
-geometry, per frame for props (§3). That keeps them pointing outward under mirroring (`scale.x = -1`),
+winding, taken to world space by the inverse-transpose of the object's 3×3 matrix each frame (§3). That keeps them pointing outward under mirroring (`scale.x = -1`),
 and the screen winding that mirroring flips is absorbed by setup (§3), so there is no index swap and
 no per-instance flag. **Never compute a world normal from the cross product of world-space vertices**
 — mirrored objects would light inside out and cull wrong. Meshes with inconsistent winding are not
@@ -583,11 +580,9 @@ current scene, with no dirty-tracking.
   texture, copies the pixels out, and destroys it immediately — one texture in memory at a time.
   Reading the BC-compressed import instead would bake block artifacts into texels that end up chunky
   and magnified on screen.
-- **Static meshes never reach the runtime, and Unity textures are never sampled.** A build step
-  strips `MeshRenderer`s, `MeshFilter`s and materials from Static objects — a leftover `MeshFilter`
-  still references its mesh and loads it into CPU and GPU memory. Props keep theirs, because that is
-  how the live gather finds them, so prop meshes need Read/Write enabled. The display camera's
-  culling mask is Nothing — URP draws only the `RawImage` (Output path).
+- **Unity textures are never sampled.** Meshes are read from their `MeshFilter`s at runtime (Live
+  gather), so every mesh needs Read/Write enabled. The display camera's culling mask is Nothing —
+  URP draws only the `RawImage` (Output path).
 - **Power-of-two, enforced.** The real reason is the mip chain: each level is exactly half, one stride
   formula, one shift per level, and the whole chain fits a single allocation at 4/3 the base size with
   a trivial offset table. Wrap becoming an `AND` is a minor bonus, not the justification. The bake
@@ -675,7 +670,7 @@ Extraction also discards tangents and UV2, enforces POT, and applies the resolut
 
 **Frustum culling (objects) + backface culling (triangles).** Both are in the §3 pipeline.
 
-Frustum culling tests one world-space AABB per static GameObject (and per prop), stored SoA. If the
+Frustum culling tests each renderer's world-space AABB (`Renderer.bounds`, which Unity keeps current). If the
 profile shows culling costing close to what it saves, replace it with something cheaper to traverse
 (e.g. a coarse spatial grid or BVH over the same AABBs).
 
@@ -704,6 +699,7 @@ No occlusion culling. It only attacks *geometry* throughput, and there is no evi
 | **Analytic blocker volumes** | **Possible, not planned** | Invisible convex volumes, gathered per tile as (light, blocker) pairs by shadow-region screen rect and tested per pixel against the segment pixel→light: ~18 flops, no memory traffic, free penumbra, and cheapest of all for the sun (unit direction, no divide). It is §4's contact blob with the light direction put back in — same gather, same opt-in component, same already-reconstructed world position — so it multiplies one light's term and leaves ambient alone. **Intended use is large moving geometry** (platforms, doors) that the bake cannot follow, and it would subsume the directional half of contact blobs. Useless for the level shell: that needs one authored volume per occluder, and there the thing blocking light is the level itself. |
 | **Occlusion probes** (baked grid, trilinear lookup) | **Possible, not planned** | Would replace §4's per-object shadow rays for sampled movers: no collider dependency, correct for flying objects, interpolated rather than binary, and traced against the same *meshes* the bake uses — which is the one thing those rays get wrong. A grid carrying ambient per position could also subsume ambient volumes, but that part is not a pure win: it trades §4's authored art direction for a GI approximation, and no bake can infer a deliberately blue-tinted cave. `UnityEngine.LightTransport.RadeonRaysProbeIntegrator.IntegrateOcclusion` computes occlusion at arbitrary positions against scene meshes, so Unity would do the tracing; untested. |
 | **Imported vertex normals + interpolation** | **Deferred** | Would let artists author smooth props. Adds a normal vertex attribute, its interpolation and a per-pixel normalize, where a face normal needs no per-pixel work. It also splits shading normal from culling normal into two channels that can disagree, so a mesh with good winding and bad normals renders visible and wrong. Additive change if smooth props are ever wanted; not a rewrite. |
+| **Static geometry pre-transformed to world space** | **Deferred** | Saves nothing per vertex, since multiplying by `mvp` or by `viewProjection` costs the same, and only a matrix product and an inverse per object. The one saving that scales with geometry is shading: lighting needs world-space normals, which a local-space mesh pays for with a 3×3 multiply and a normalize per visible triangle each frame. Revisit if the milestone 6 profile shows that cost, or for other static-only optimizations (merged level chunks, spatial structures). |
 | **MSAA / any antialiasing** | **Rejected** | Fights the pixel-art look and multiplies raster cost. Aliasing is the aesthetic. |
 | **Bilinear filtering** | **Rejected for textures** | Same reason. It is *magnification* that makes texels chunky, and bilinear is precisely what softens them. **The visibility map is the deliberate exception** (§4): Quake also paired nearest-sampled textures with a smoothly interpolated lightmap, and without it a coarse map reads as blocky shadows rather than soft ones. |
 | **Trilinear (blending between levels)** | **Rejected** | Redundant: dithered level selection (§3) already delivers the same expected result while keeping every pixel one raw texel. Trilinear would be a second sampling path with two texel fetches per pixel. |
@@ -764,7 +760,7 @@ not a renderer feature.
 | 2   | Single-threaded triangle raster, flat color, z-buffer, fixed-point edges, near clip + guard-band fallback, backface culling |
 | 3   | **Tile binning + parallel jobs — the architectural spine.** Includes *minimal* scene extraction (every enabled `MeshRenderer` drawn through the mesh library, per-object AABBs + frustum culling; no Static baking, textures, materials or animation), minimal instrumentation, a hand-built expensive benchmark scene with a lockable camera, and the first profile (§3 cost model). Binning proves nothing on hardcoded triangles, and nothing is measurable without a repeatable scene. |
 | 4   | Texture bake (POT resample, mip chain) + perspective texture mapping, nearest sampling, dithered mip selection (§3) |
-| 5   | Rest of the bake (Static geometry to world space, materials, surface descriptors, per-triangle ambient volume indices, visibility transcode, blob asset) + live gather (prop transforms, blob shadows, lights, sun, animation time) |
+| 5   | Rest of the bake (materials, surface descriptors, per-triangle ambient volume indices, visibility transcode, blob asset) + live gather (prop transforms, blob shadows, lights, sun, animation time) |
 | 6   | Per-tile light gather + colormap ramp + ambient volumes + baked visibility sampling (adds the second interpolated UV set to §3's setup) + optional sun + `LitTextured` / `Fullbright` / `AlphaTested` |
 | 7   | Props, baked vertex animation, contact blobs, per-object shadow rays for sampled movers (§4) |
 | 8   | `Sky` / `Liquid` / `Particle` if wanted |
