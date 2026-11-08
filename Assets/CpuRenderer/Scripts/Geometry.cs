@@ -22,6 +22,33 @@ public static class Geometry
         return polygon;
     }
 
+    public static bool IsBoxOffScreen(float4x4 viewProjection, float3 center, float3 extents, float near)
+    {
+        float4x4 rows = math.transpose(viewProjection);
+        FixedList128Bytes<float4> planes = default;
+        planes.Add(rows.c3 + rows.c0);//left
+        planes.Add(rows.c3 - rows.c0);//right
+        planes.Add(rows.c3 + rows.c1);//bottom
+        planes.Add(rows.c3 - rows.c1);//top
+        planes.Add(rows.c3 - new float4(0f, 0f, 0f, near));//near
+
+        for (int i = 0; i < planes.Length; ++i)
+        {
+            if (IsBoxOutsidePlane(planes[i], center, extents))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private static bool IsBoxOutsidePlane(float4 plane, float3 center, float3 extents)
+    {
+        float distance = math.dot(plane.xyz, center) + plane.w;
+        float radius = math.dot(math.abs(plane.xyz), extents);
+        return distance < -radius;
+    }
 
     private static bool IsOffScreen(float4 v0, float4 v1, float4 v2)
     {

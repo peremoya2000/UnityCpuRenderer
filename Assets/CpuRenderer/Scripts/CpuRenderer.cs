@@ -99,14 +99,23 @@ public class CpuRenderer : MonoBehaviour
             RenderSize = new int2((int)RenderResolution.x, (int)RenderResolution.y),
         };
 
+        //Unity uses forward = Z, but Matrix4x4.Perspective expects forward = -Z, so we need to flip the Z axis in the view matrix.
+        Matrix4x4 view = Matrix4x4.Scale(new Vector3(1, 1, -1)) * Matrix4x4.TRS(Camera.transform.position, Camera.transform.rotation, Vector3.one).inverse;
+        Matrix4x4 perspective = Matrix4x4.Perspective(Camera.fieldOfView, RenderResolution.x / RenderResolution.y, Camera.nearClipPlane, 1000f);
+        Matrix4x4 viewProjection = perspective * view;
+
         MeshRenderer[] renderers = FindObjectsByType<MeshRenderer>(FindObjectsSortMode.InstanceID);
         for (int i = 0; i < renderers.Length; ++i)
         {
             MeshRenderer renderer = renderers[i];
             if (!renderer.enabled) continue;
-
+            Bounds bounds = renderer.bounds;
+            if (Geometry.IsBoxOffScreen(viewProjection, bounds.center, bounds.extents, Camera.nearClipPlane))
+            {
+                continue;
+            }
             MeshEntry range = meshLibrary.GetOrAdd(GetMesh(renderer));
-            RenderMesh(range, renderer.transform.localToWorldMatrix, framebuffer);
+            RenderMesh(range, renderer.transform.localToWorldMatrix, viewProjection, framebuffer);
         }
 
         if (Keyboard.current.ctrlKey.isPressed)
@@ -127,12 +136,9 @@ public class CpuRenderer : MonoBehaviour
         }
     }
 
-    private void RenderMesh(MeshEntry meshEntry, Matrix4x4 modelMatrix, Framebuffer framebuffer)
+    private void RenderMesh(MeshEntry meshEntry, Matrix4x4 modelMatrix, Matrix4x4 viewProjection, Framebuffer framebuffer)
     {
-        //Unity uses forward = Z, but Matrix4x4.Perspective expects forward = -Z, so we need to flip the Z axis in the view matrix.
-        Matrix4x4 view = Matrix4x4.Scale(new Vector3(1, 1, -1)) * Matrix4x4.TRS(Camera.transform.position, Camera.transform.rotation, Vector3.one).inverse;
-        Matrix4x4 perspective = Matrix4x4.Perspective(Camera.fieldOfView, RenderResolution.x / RenderResolution.y, Camera.nearClipPlane, 1000f);
-        float4x4 mvp = perspective * view * modelMatrix;
+        float4x4 mvp = viewProjection * modelMatrix;
 
         float3 localCameraPos = math.mul(math.inverse(modelMatrix), new float4(Camera.transform.position, 1f)).xyz;
 

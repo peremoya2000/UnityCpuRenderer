@@ -14,6 +14,7 @@ public static class GeometryTests
         TestNearClip();
         TestOffScreenReject();
         TestGuardBandClip();
+        TestBoxCulling();
 
         Debug.Log("Geometry tests finished.");
     }
@@ -56,6 +57,22 @@ public static class GeometryTests
 
         a = Vertex(0f, 2f); b = Vertex(3f, 2f); c = Vertex(30f, -1f);
         AssertClip(GUARD_BAND_SCALE, a, b, c, a, b, Vertex(42f / 11f, 21f / 11f), Vertex(10f / 3f, 5f / 3f));
+    }
+
+    private static void TestBoxCulling()
+    {
+        float4x4 viewProjection = Matrix4x4.Perspective(60f, 16f / 9f, NEAR, 1000f) * Matrix4x4.Scale(new Vector3(1f, 1f, -1f));
+
+        AssertBoxOffScreen("box right of the view", viewProjection, new float3(11f, 0f, 6f), new float3(1f, 1f, 1f), true);
+        AssertBoxOffScreen("box straight ahead", viewProjection, new float3(0f, 0f, 6f), new float3(1f, 1f, 1f), false);
+        AssertBoxOffScreen("big box behind the camera", viewProjection, new float3(0f, 0f, -14f), new float3(8f, 8f, 8f), true);
+        AssertBoxOffScreen("wall straddling the view", viewProjection, new float3(0f, 0f, 10f), new float3(20f, 1f, 0.1f), false);
+    }
+
+    private static void AssertBoxOffScreen(string description, float4x4 viewProjection, float3 center, float3 extents, bool expected)
+    {
+        bool actual = Geometry.IsBoxOffScreen(viewProjection, center, extents, NEAR);
+        Debug.Assert(actual == expected, $"IsBoxOffScreen, {description}: returned {actual}, expected {expected}.");
     }
 
     private static void AssertClip(float guardBandScale, float4 a, float4 b, float4 c, params float4[] expected)
