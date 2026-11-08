@@ -17,6 +17,7 @@ public class CpuRenderer : MonoBehaviour
     private Texture2D colorBuffer;
     private NativeArray<float> depthBuffer;
     private Vector2Int lastScreenSize;
+    private FrameTimeStatistics frameTimeStatistics;
 
     private MeshLibrary meshLibrary;
     private NativeList<float4> clipVertices;
@@ -63,6 +64,8 @@ public class CpuRenderer : MonoBehaviour
         Debug.Assert(Camera != null, "Camera is not assigned.", this);
         Camera.enabled = false;
 
+        frameTimeStatistics = new FrameTimeStatistics();
+
 #if UNITY_EDITOR
         GeometryTests.Run();
 #endif
@@ -80,6 +83,7 @@ public class CpuRenderer : MonoBehaviour
             ScreenCapture.CaptureScreenshot($"Screenshot_{Screen.width}x{Screen.height}.png");
         }
 
+        frameTimeStatistics.StartMeasuringFrame();
         NativeArray<Color32> pixels = colorBuffer.GetRawTextureData<Color32>();
         for (int i = 0; i < pixels.Length; ++i)
         {
@@ -105,7 +109,7 @@ public class CpuRenderer : MonoBehaviour
             RenderMesh(range, renderer.transform.localToWorldMatrix, framebuffer);
         }
 
-        if (Keyboard.current.dKey.isPressed)
+        if (Keyboard.current.ctrlKey.isPressed)
         {
             for (int i = 0; i < pixels.Length; ++i)
             {
@@ -115,6 +119,12 @@ public class CpuRenderer : MonoBehaviour
         }
 
         colorBuffer.Apply(false, false);
+
+        frameTimeStatistics.FinishMeasuringFrame();
+        if (Time.realtimeSinceStartup % 1f < Time.deltaTime)
+        {
+            Debug.Log(frameTimeStatistics.GetDetailedStats());
+        }
     }
 
     private void RenderMesh(MeshEntry meshEntry, Matrix4x4 modelMatrix, Framebuffer framebuffer)

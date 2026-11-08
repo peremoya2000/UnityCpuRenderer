@@ -758,7 +758,7 @@ not a renderer feature.
 | --- | --- |
 | 1   | Framebuffer + integer-scaled `RawImage` display with black bars + clear — prove the output path first. **Pin colorspace here.** |
 | 2   | Single-threaded triangle raster, flat color, z-buffer, fixed-point edges, near clip + guard-band fallback, backface culling |
-| 3   | **Tile binning + parallel jobs — the architectural spine.** Includes *minimal* scene extraction (every enabled `MeshRenderer` drawn through the mesh library, per-object AABBs + frustum culling; no Static baking, textures, materials or animation), minimal instrumentation, a hand-built expensive benchmark scene with a lockable camera, and the first profile (§3 cost model). Binning proves nothing on hardcoded triangles, and nothing is measurable without a repeatable scene. |
+| 3   | **Tile binning + parallel jobs — the architectural spine.** Includes *minimal* scene extraction (every enabled `MeshRenderer` drawn through the mesh library, per-object AABBs + frustum culling; no Static baking, textures, materials or animation), minimal instrumentation, the E1M1 benchmark scene (Quake's first level, converted from the GPL map source into an ordinary Unity scene in `Assets/E1M1`) with a lockable camera, and the first profile (§3 cost model). Binning proves nothing on hardcoded triangles, and nothing is measurable without a repeatable scene. |
 | 4   | Texture bake (POT resample, mip chain) + perspective texture mapping, nearest sampling, dithered mip selection (§3) |
 | 5   | Rest of the bake (materials, surface descriptors, per-triangle ambient volume indices, visibility transcode, blob asset) + live gather (prop transforms, blob shadows, lights, sun, animation time) |
 | 6   | Per-tile light gather + colormap ramp + ambient volumes + baked visibility sampling (adds the second interpolated UV set to §3's setup) + optional sun + `LitTextured` / `Fullbright` / `AlphaTested` |
@@ -784,7 +784,6 @@ Get to milestone 3 fast; it proves the thesis. Don't polish 1–2.
 - Tile size (16 / 32 / 64) and framebuffer layout (linear shared vs. tile-major private) — benchmark
   at milestone 10, don't guess.
 - Number of quantization steps in the light ramp, and whether to dither before quantizing.
-- Whether the level kit ships individual textures or a trim sheet (affects the §7 gotcha).
 - **How do props' materials reach the texture bake?** Props keep their `MeshRenderer`, and a prefab
   that only appears at runtime is in no scene, so a bake that walks the scenes would miss its
   materials. Settle it with the texture bake (milestone 4).

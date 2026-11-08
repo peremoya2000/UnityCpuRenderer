@@ -1,0 +1,2853 @@
+{
+ "Source": "E1M1.MAP",
+ "Triangles": 19446,
+ "BoundsMin": {
+  "x": -18.5,
+  "y": -18.5,
+  "z": -13.0
+ },
+ "BoundsMax": {
+  "x": 47.0,
+  "y": 8.5,
+  "z": 95.75
+ },
+ "Objects": [
+  {
+   "Name": "World_00_01",
+   "IsStatic": true,
+   "Triangles": 30,
+   "StartOffset": {
+    "x": 0.0,
+    "y": 0.0,
+    "z": 0.0
+   }
+  },
+  {
+   "Name": "World_00_02",
+   "IsStatic": true,
+   "Triangles": 57,
+   "StartOffset": {
+    "x": 0.0,
+    "y": 0.0,
+    "z": 0.0
+   }
+  },
+  {
+   "Name": "World_00_03",
+   "IsStatic": true,
+   "Triangles": 73,
+   "StartOffset": {
+    "x": 0.0,
+    "y": 0.0,
+    "z": 0.0
+   }
+  },
+  {
+   "Name": "World_00_04",
+   "IsStatic": true,
+   "Triangles": 643,
+   "StartOffset": {
+    "x": 0.0,
+    "y": 0.0,
+    "z": 0.0
+   }
+  },
+  {
+   "Name": "World_00_05",
+   "IsStatic": true,
+   "Triangles": 829,
+   "StartOffset": {
+    "x": 0.0,
+    "y": 0.0,
+    "z": 0.0
+   }
+  },
+  {
+   "Name": "World_00_06",
+   "IsStatic": true,
+   "Triangles": 520,
+   "StartOffset": {
+    "x": 0.0,
+    "y": 0.0,
+    "z": 0.0
+   }
+  },
+  {
+   "Name": "World_01_00",
+   "IsStatic": true,
+   "Triangles": 86,
+   "StartOffset": {
+    "x": 0.0,
+    "y": 0.0,
+    "z": 0.0
+   }
+  },
+  {
+   "Name": "World_01_01",
+   "IsStatic": true,
+   "Triangles": 356,
+   "StartOffset": {
+    "x": 0.0,
+    "y": 0.0,
+    "z": 0.0
+   }
+  },
+  {
+   "Name": "World_01_02",
+   "IsStatic": true,
+   "Triangles": 719,
+   "StartOffset": {
+    "x": 0.0,
+    "y": 0.0,
+    "z": 0.0
+   }
+  },
+  {
+   "Name": "World_01_03",
+   "IsStatic": true,
+   "Triangles": 857,
+   "StartOffset": {
+    "x": 0.0,
+    "y": 0.0,
+    "z": 0.0
+   }
+  },
+  {
+   "Name": "World_01_04",
+   "IsStatic": true,
+   "Triangles": 690,
+   "StartOffset": {
+    "x": 0.0,
+    "y": 0.0,
+    "z": 0.0
+   }
+  },
+  {
+   "Name": "World_01_05",
+   "IsStatic": true,
+   "Triangles": 458,
+   "StartOffset": {
+    "x": 0.0,
+    "y": 0.0,
+    "z": 0.0
+   }
+  },
+  {
+   "Name": "World_01_06",
+   "IsStatic": true,
+   "Triangles": 806,
+   "StartOffset": {
+    "x": 0.0,
+    "y": 0.0,
+    "z": 0.0
+   }
+  },
+  {
+   "Name": "World_02_00",
+   "IsStatic": true,
+   "Triangles": 385,
+   "StartOffset": {
+    "x": 0.0,
+    "y": 0.0,
+    "z": 0.0
+   }
+  },
+  {
+   "Name": "World_02_01",
+   "IsStatic": true,
+   "Triangles": 647,
+   "StartOffset": {
+    "x": 0.0,
+    "y": 0.0,
+    "z": 0.0
+   }
+  },
+  {
+   "Name": "World_02_02",
+   "IsStatic": true,
+   "Triangles": 1048,
+   "StartOffset": {
+    "x": 0.0,
+    "y": 0.0,
+    "z": 0.0
+   }
+  },
+  {
+   "Name": "World_02_03",
+   "IsStatic": true,
+   "Triangles": 102,
+   "StartOffset": {
+    "x": 0.0,
+    "y": 0.0,
+    "z": 0.0
+   }
+  },
+  {
+   "Name": "World_02_04",
+   "IsStatic": true,
+   "Triangles": 1468,
+   "StartOffset": {
+    "x": 0.0,
+    "y": 0.0,
+    "z": 0.0
+   }
+  },
+  {
+   "Name": "World_02_05",
+   "IsStatic": true,
+   "Triangles": 1091,
+   "StartOffset": {
+    "x": 0.0,
+    "y": 0.0,
+    "z": 0.0
+   }
+  },
+  {
+   "Name": "World_02_06",
+   "IsStatic": true,
+   "Triangles": 307,
+   "StartOffset": {
+    "x": 0.0,
+    "y": 0.0,
+    "z": 0.0
+   }
+  },
+  {
+   "Name": "World_03_01",
+   "IsStatic": true,
+   "Triangles": 381,
+   "StartOffset": {
+    "x": 0.0,
+    "y": 0.0,
+    "z": 0.0
+   }
+  },
+  {
+   "Name": "World_03_02",
+   "IsStatic": true,
+   "Triangles": 2149,
+   "StartOffset": {
+    "x": 0.0,
+    "y": 0.0,
+    "z": 0.0
+   }
+  },
+  {
+   "Name": "World_03_03",
+   "IsStatic": true,
+   "Triangles": 1046,
+   "StartOffset": {
+    "x": 0.0,
+    "y": 0.0,
+    "z": 0.0
+   }
+  },
+  {
+   "Name": "World_03_04",
+   "IsStatic": true,
+   "Triangles": 1523,
+   "StartOffset": {
+    "x": 0.0,
+    "y": 0.0,
+    "z": 0.0
+   }
+  },
+  {
+   "Name": "World_03_05",
+   "IsStatic": true,
+   "Triangles": 2283,
+   "StartOffset": {
+    "x": 0.0,
+    "y": 0.0,
+    "z": 0.0
+   }
+  },
+  {
+   "Name": "World_04_01",
+   "IsStatic": true,
+   "Triangles": 17,
+   "StartOffset": {
+    "x": 0.0,
+    "y": 0.0,
+    "z": 0.0
+   }
+  },
+  {
+   "Name": "World_04_02",
+   "IsStatic": true,
+   "Triangles": 162,
+   "StartOffset": {
+    "x": 0.0,
+    "y": 0.0,
+    "z": 0.0
+   }
+  },
+  {
+   "Name": "World_04_03",
+   "IsStatic": true,
+   "Triangles": 25,
+   "StartOffset": {
+    "x": 0.0,
+    "y": 0.0,
+    "z": 0.0
+   }
+  },
+  {
+   "Name": "func_door_01",
+   "IsStatic": false,
+   "Triangles": 36,
+   "StartOffset": {
+    "x": -0.0,
+    "y": 0.0,
+    "z": -3.0
+   }
+  },
+  {
+   "Name": "func_door_02",
+   "IsStatic": false,
+   "Triangles": 36,
+   "StartOffset": {
+    "x": 0.0,
+    "y": 0.0,
+    "z": 2.9375000000000036
+   }
+  },
+  {
+   "Name": "func_door_03",
+   "IsStatic": false,
+   "Triangles": 44,
+   "StartOffset": {
+    "x": 0.0,
+    "y": -7.25,
+    "z": 0.0
+   }
+  },
+  {
+   "Name": "func_button_01",
+   "IsStatic": false,
+   "Triangles": 12,
+   "StartOffset": {
+    "x": 0.0,
+    "y": 0.0,
+    "z": 0.0
+   }
+  },
+  {
+   "Name": "func_door_04",
+   "IsStatic": false,
+   "Triangles": 36,
+   "StartOffset": {
+    "x": -3.0,
+    "y": 0.0,
+    "z": 0.0
+   }
+  },
+  {
+   "Name": "func_door_05",
+   "IsStatic": false,
+   "Triangles": 36,
+   "StartOffset": {
+    "x": 2.9375000000000155,
+    "y": 0.0,
+    "z": 0.0
+   }
+  },
+  {
+   "Name": "func_plat_01",
+   "IsStatic": false,
+   "Triangles": 34,
+   "StartOffset": {
+    "x": 0.0,
+    "y": -4.75,
+    "z": 0.0
+   }
+  },
+  {
+   "Name": "func_door_06",
+   "IsStatic": false,
+   "Triangles": 12,
+   "StartOffset": {
+    "x": -0.0,
+    "y": 0.0,
+    "z": -7.5
+   }
+  },
+  {
+   "Name": "func_button_02",
+   "IsStatic": false,
+   "Triangles": 12,
+   "StartOffset": {
+    "x": 0.0,
+    "y": 0.0,
+    "z": 0.0
+   }
+  },
+  {
+   "Name": "func_door_secret_01",
+   "IsStatic": false,
+   "Triangles": 12,
+   "StartOffset": {
+    "x": 0.0,
+    "y": 0.0,
+    "z": 0.0
+   }
+  },
+  {
+   "Name": "func_door_secret_02",
+   "IsStatic": false,
+   "Triangles": 36,
+   "StartOffset": {
+    "x": 0.0,
+    "y": 0.0,
+    "z": 0.0
+   }
+  },
+  {
+   "Name": "func_door_secret_03",
+   "IsStatic": false,
+   "Triangles": 48,
+   "StartOffset": {
+    "x": 0.0,
+    "y": 0.0,
+    "z": 0.0
+   }
+  },
+  {
+   "Name": "func_door_07",
+   "IsStatic": false,
+   "Triangles": 34,
+   "StartOffset": {
+    "x": 0.0,
+    "y": -2.0625,
+    "z": 0.0
+   }
+  },
+  {
+   "Name": "func_door_08",
+   "IsStatic": false,
+   "Triangles": 12,
+   "StartOffset": {
+    "x": 0.0,
+    "y": 0.0,
+    "z": 3.25
+   }
+  },
+  {
+   "Name": "func_button_03",
+   "IsStatic": false,
+   "Triangles": 12,
+   "StartOffset": {
+    "x": 0.0,
+    "y": 0.0,
+    "z": 0.0
+   }
+  },
+  {
+   "Name": "func_door_secret_04",
+   "IsStatic": false,
+   "Triangles": 12,
+   "StartOffset": {
+    "x": 0.0,
+    "y": 0.0,
+    "z": 0.0
+   }
+  },
+  {
+   "Name": "func_plat_02",
+   "IsStatic": false,
+   "Triangles": 20,
+   "StartOffset": {
+    "x": 0.0,
+    "y": -12.5,
+    "z": 0.0
+   }
+  },
+  {
+   "Name": "func_door_secret_05",
+   "IsStatic": false,
+   "Triangles": 12,
+   "StartOffset": {
+    "x": 0.0,
+    "y": 0.0,
+    "z": 0.0
+   }
+  },
+  {
+   "Name": "func_button_04",
+   "IsStatic": false,
+   "Triangles": 12,
+   "StartOffset": {
+    "x": 0.0,
+    "y": 0.0,
+    "z": 0.0
+   }
+  },
+  {
+   "Name": "func_button_05",
+   "IsStatic": false,
+   "Triangles": 12,
+   "StartOffset": {
+    "x": 0.0,
+    "y": 0.0,
+    "z": 0.0
+   }
+  },
+  {
+   "Name": "func_button_06",
+   "IsStatic": false,
+   "Triangles": 12,
+   "StartOffset": {
+    "x": 0.0,
+    "y": 0.0,
+    "z": 0.0
+   }
+  },
+  {
+   "Name": "func_door_09",
+   "IsStatic": false,
+   "Triangles": 36,
+   "StartOffset": {
+    "x": -4.25,
+    "y": 0.0,
+    "z": 0.0
+   }
+  },
+  {
+   "Name": "func_door_10",
+   "IsStatic": false,
+   "Triangles": 12,
+   "StartOffset": {
+    "x": 0.0,
+    "y": -0.5000000000001172,
+    "z": 0.0
+   }
+  },
+  {
+   "Name": "func_door_11",
+   "IsStatic": false,
+   "Triangles": 12,
+   "StartOffset": {
+    "x": 0.0,
+    "y": -0.5000000000001172,
+    "z": 0.0
+   }
+  },
+  {
+   "Name": "func_door_12",
+   "IsStatic": false,
+   "Triangles": 12,
+   "StartOffset": {
+    "x": 0.0,
+    "y": -0.5,
+    "z": 0.0
+   }
+  },
+  {
+   "Name": "func_door_13",
+   "IsStatic": false,
+   "Triangles": 12,
+   "StartOffset": {
+    "x": 0.0,
+    "y": -0.5000000000001119,
+    "z": 0.0
+   }
+  },
+  {
+   "Name": "func_door_14",
+   "IsStatic": false,
+   "Triangles": 36,
+   "StartOffset": {
+    "x": -0.0,
+    "y": 0.0,
+    "z": -3.75
+   }
+  },
+  {
+   "Name": "func_door_secret_06",
+   "IsStatic": false,
+   "Triangles": 12,
+   "StartOffset": {
+    "x": 0.0,
+    "y": 0.0,
+    "z": 0.0
+   }
+  },
+  {
+   "Name": "func_door_secret_07",
+   "IsStatic": false,
+   "Triangles": 12,
+   "StartOffset": {
+    "x": 0.0,
+    "y": 0.0,
+    "z": 0.0
+   }
+  },
+  {
+   "Name": "func_wall_01",
+   "IsStatic": false,
+   "Triangles": 40,
+   "StartOffset": {
+    "x": 0.0,
+    "y": 0.0,
+    "z": 0.0
+   }
+  },
+  {
+   "Name": "func_wall_02",
+   "IsStatic": false,
+   "Triangles": 12,
+   "StartOffset": {
+    "x": 0.0,
+    "y": 0.0,
+    "z": 0.0
+   }
+  }
+ ],
+ "Lights": [
+  {
+   "Name": "light_001",
+   "Position": {
+    "x": 15.0,
+    "y": 5.25,
+    "z": 3.0
+   },
+   "Range": 7.8125,
+   "Intensity": 0.8333333333333334,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_002",
+   "Position": {
+    "x": 15.0,
+    "y": 5.25,
+    "z": 9.0
+   },
+   "Range": 7.8125,
+   "Intensity": 0.8333333333333334,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_003",
+   "Position": {
+    "x": 8.5,
+    "y": 2.5,
+    "z": 3.0
+   },
+   "Range": 9.375,
+   "Intensity": 1.0,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_004",
+   "Position": {
+    "x": 8.5,
+    "y": 2.5,
+    "z": 9.0
+   },
+   "Range": 9.375,
+   "Intensity": 1.0,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_005",
+   "Position": {
+    "x": 8.5,
+    "y": 2.5,
+    "z": 6.0
+   },
+   "Range": 9.375,
+   "Intensity": 1.0,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_fluorospark_001 (style 10)",
+   "Position": {
+    "x": 21.5,
+    "y": 2.5,
+    "z": 6.0
+   },
+   "Range": 9.375,
+   "Intensity": 1.0,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_006 (style 10)",
+   "Position": {
+    "x": 21.5,
+    "y": 2.5,
+    "z": 9.0
+   },
+   "Range": 9.375,
+   "Intensity": 1.0,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_007 (style 10)",
+   "Position": {
+    "x": 21.5,
+    "y": 2.5,
+    "z": 3.0
+   },
+   "Range": 9.375,
+   "Intensity": 1.0,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_008",
+   "Position": {
+    "x": 15.0,
+    "y": 5.25,
+    "z": -8.75
+   },
+   "Range": 6.25,
+   "Intensity": 0.6666666666666666,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_009",
+   "Position": {
+    "x": 15.0,
+    "y": 5.25,
+    "z": -4.5
+   },
+   "Range": 6.25,
+   "Intensity": 0.6666666666666666,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_010",
+   "Position": {
+    "x": 15.0,
+    "y": 3.75,
+    "z": -11.75
+   },
+   "Range": 6.25,
+   "Intensity": 0.6666666666666666,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_011",
+   "Position": {
+    "x": 15.0,
+    "y": 5.25,
+    "z": -1.25
+   },
+   "Range": 5.0,
+   "Intensity": 0.5333333333333333,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_fluoro_001",
+   "Position": {
+    "x": 18.5,
+    "y": 2.75,
+    "z": 17.0
+   },
+   "Range": 7.8125,
+   "Intensity": 0.8333333333333334,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_012",
+   "Position": {
+    "x": 14.25,
+    "y": 3.25,
+    "z": 18.75
+   },
+   "Range": 9.375,
+   "Intensity": 1.0,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_013",
+   "Position": {
+    "x": 21.5,
+    "y": 4.25,
+    "z": 20.25
+   },
+   "Range": 5.625,
+   "Intensity": 0.6,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_014",
+   "Position": {
+    "x": 21.5,
+    "y": 4.25,
+    "z": 16.25
+   },
+   "Range": 5.625,
+   "Intensity": 0.6,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_015",
+   "Position": {
+    "x": 0.0,
+    "y": 3.75,
+    "z": 18.0
+   },
+   "Range": 7.8125,
+   "Intensity": 0.8333333333333334,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_016",
+   "Position": {
+    "x": 5.0,
+    "y": 2.25,
+    "z": 18.0
+   },
+   "Range": 5.625,
+   "Intensity": 0.6,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_017",
+   "Position": {
+    "x": 17.5,
+    "y": 2.25,
+    "z": -1.0
+   },
+   "Range": 6.25,
+   "Intensity": 0.6666666666666666,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_018",
+   "Position": {
+    "x": 12.5,
+    "y": 2.25,
+    "z": -1.0
+   },
+   "Range": 6.25,
+   "Intensity": 0.6666666666666666,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_019",
+   "Position": {
+    "x": 0.0,
+    "y": 2.25,
+    "z": 22.25
+   },
+   "Range": 6.25,
+   "Intensity": 0.6666666666666666,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_020",
+   "Position": {
+    "x": 0.0,
+    "y": -4.25,
+    "z": 22.75
+   },
+   "Range": 6.25,
+   "Intensity": 0.6666666666666666,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_021",
+   "Position": {
+    "x": 0.0,
+    "y": -4.25,
+    "z": 18.5
+   },
+   "Range": 6.25,
+   "Intensity": 0.6666666666666666,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_022",
+   "Position": {
+    "x": 12.875,
+    "y": 4.25,
+    "z": 24.375
+   },
+   "Range": 6.25,
+   "Intensity": 0.6666666666666666,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_023",
+   "Position": {
+    "x": 10.25,
+    "y": 2.25,
+    "z": 28.25
+   },
+   "Range": 6.25,
+   "Intensity": 0.6666666666666666,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_024",
+   "Position": {
+    "x": 5.25,
+    "y": 2.25,
+    "z": 25.0
+   },
+   "Range": 6.25,
+   "Intensity": 0.6666666666666666,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_025",
+   "Position": {
+    "x": -2.25,
+    "y": 2.25,
+    "z": 27.0
+   },
+   "Range": 6.25,
+   "Intensity": 0.6666666666666666,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_026",
+   "Position": {
+    "x": 8.25,
+    "y": -4.25,
+    "z": 27.75
+   },
+   "Range": 9.375,
+   "Intensity": 1.0,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_027",
+   "Position": {
+    "x": -0.25,
+    "y": -4.25,
+    "z": 31.0
+   },
+   "Range": 6.25,
+   "Intensity": 0.6666666666666666,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_028",
+   "Position": {
+    "x": 8.5,
+    "y": -4.25,
+    "z": 33.25
+   },
+   "Range": 7.8125,
+   "Intensity": 0.8333333333333334,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_029",
+   "Position": {
+    "x": -0.25,
+    "y": -4.25,
+    "z": 38.5
+   },
+   "Range": 7.8125,
+   "Intensity": 0.8333333333333334,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_030",
+   "Position": {
+    "x": 8.0,
+    "y": -4.25,
+    "z": 39.75
+   },
+   "Range": 7.8125,
+   "Intensity": 0.8333333333333334,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_031",
+   "Position": {
+    "x": 9.75,
+    "y": -4.25,
+    "z": 45.75
+   },
+   "Range": 7.8125,
+   "Intensity": 0.8333333333333334,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_032",
+   "Position": {
+    "x": 4.0,
+    "y": 2.25,
+    "z": 30.25
+   },
+   "Range": 6.25,
+   "Intensity": 0.6666666666666666,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_033",
+   "Position": {
+    "x": -1.5,
+    "y": 2.25,
+    "z": 36.5
+   },
+   "Range": 7.8125,
+   "Intensity": 0.8333333333333334,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_034",
+   "Position": {
+    "x": 9.75,
+    "y": 2.25,
+    "z": 36.5
+   },
+   "Range": 7.8125,
+   "Intensity": 0.8333333333333334,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_035",
+   "Position": {
+    "x": 4.0,
+    "y": -3.75,
+    "z": 47.0
+   },
+   "Range": 6.875,
+   "Intensity": 0.7333333333333333,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_036",
+   "Position": {
+    "x": -1.75,
+    "y": -4.25,
+    "z": 45.75
+   },
+   "Range": 7.8125,
+   "Intensity": 0.8333333333333334,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_fluoro_002",
+   "Position": {
+    "x": 5.5,
+    "y": -4.75,
+    "z": 54.5
+   },
+   "Range": 9.375,
+   "Intensity": 1.0,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_fluoro_003",
+   "Position": {
+    "x": 2.5,
+    "y": -4.75,
+    "z": 54.5
+   },
+   "Range": 9.375,
+   "Intensity": 1.0,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_037",
+   "Position": {
+    "x": -7.25,
+    "y": -4.25,
+    "z": 50.0
+   },
+   "Range": 7.8125,
+   "Intensity": 0.8333333333333334,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_038",
+   "Position": {
+    "x": 15.25,
+    "y": -4.25,
+    "z": 50.0
+   },
+   "Range": 7.8125,
+   "Intensity": 0.8333333333333334,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_039",
+   "Position": {
+    "x": -1.75,
+    "y": 2.25,
+    "z": 45.25
+   },
+   "Range": 7.8125,
+   "Intensity": 0.8333333333333334,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_040",
+   "Position": {
+    "x": 9.75,
+    "y": 2.25,
+    "z": 45.25
+   },
+   "Range": 7.8125,
+   "Intensity": 0.8333333333333334,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_fluoro_004",
+   "Position": {
+    "x": 13.0,
+    "y": -3.5,
+    "z": 64.5
+   },
+   "Range": 8.125,
+   "Intensity": 0.8666666666666667,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_fluoro_005",
+   "Position": {
+    "x": 13.0,
+    "y": -3.5,
+    "z": 61.5
+   },
+   "Range": 8.125,
+   "Intensity": 0.8666666666666667,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_041",
+   "Position": {
+    "x": 4.0,
+    "y": -3.5,
+    "z": 58.75
+   },
+   "Range": 7.8125,
+   "Intensity": 0.8333333333333334,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_042",
+   "Position": {
+    "x": 19.25,
+    "y": -2.75,
+    "z": 60.75
+   },
+   "Range": 9.375,
+   "Intensity": 1.0,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_fluorospark_002 (style 10)",
+   "Position": {
+    "x": 10.75,
+    "y": -2.75,
+    "z": 69.25
+   },
+   "Range": 9.375,
+   "Intensity": 1.0,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_043",
+   "Position": {
+    "x": 11.0,
+    "y": -3.5,
+    "z": 63.0
+   },
+   "Range": 5.625,
+   "Intensity": 0.6,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_044",
+   "Position": {
+    "x": 4.0,
+    "y": -3.5,
+    "z": 64.25
+   },
+   "Range": 7.8125,
+   "Intensity": 0.8333333333333334,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_045",
+   "Position": {
+    "x": -3.5,
+    "y": -3.5,
+    "z": 62.0
+   },
+   "Range": 7.8125,
+   "Intensity": 0.8333333333333334,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_fluoro_006",
+   "Position": {
+    "x": -14.75,
+    "y": -2.75,
+    "z": 64.5
+   },
+   "Range": 10.9375,
+   "Intensity": 1.1666666666666667,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_046",
+   "Position": {
+    "x": -6.0,
+    "y": 0.25,
+    "z": 69.0
+   },
+   "Range": 7.8125,
+   "Intensity": 0.8333333333333334,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_047",
+   "Position": {
+    "x": -13.25,
+    "y": 0.25,
+    "z": 69.0
+   },
+   "Range": 7.8125,
+   "Intensity": 0.8333333333333334,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_048",
+   "Position": {
+    "x": -7.75,
+    "y": -3.0,
+    "z": 65.25
+   },
+   "Range": 7.8125,
+   "Intensity": 0.8333333333333334,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_049",
+   "Position": {
+    "x": -6.25,
+    "y": -2.25,
+    "z": 74.5
+   },
+   "Range": 9.375,
+   "Intensity": 1.0,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_050",
+   "Position": {
+    "x": -13.25,
+    "y": -2.25,
+    "z": 74.5
+   },
+   "Range": 9.375,
+   "Intensity": 1.0,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_051",
+   "Position": {
+    "x": -14.0,
+    "y": -4.0,
+    "z": 75.25
+   },
+   "Range": 6.25,
+   "Intensity": 0.6666666666666666,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_052",
+   "Position": {
+    "x": -5.5,
+    "y": -4.0,
+    "z": 75.25
+   },
+   "Range": 6.25,
+   "Intensity": 0.6666666666666666,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_053",
+   "Position": {
+    "x": -11.0,
+    "y": 5.75,
+    "z": 83.0
+   },
+   "Range": 10.9375,
+   "Intensity": 1.1666666666666667,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_054",
+   "Position": {
+    "x": -11.0,
+    "y": 5.75,
+    "z": 77.0
+   },
+   "Range": 10.9375,
+   "Intensity": 1.1666666666666667,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_055",
+   "Position": {
+    "x": -18.0,
+    "y": -1.25,
+    "z": 87.5
+   },
+   "Range": 9.375,
+   "Intensity": 1.0,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_056",
+   "Position": {
+    "x": 5.0,
+    "y": 7.25,
+    "z": 91.25
+   },
+   "Range": 15.625,
+   "Intensity": 1.6666666666666667,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_057",
+   "Position": {
+    "x": 5.0,
+    "y": 7.25,
+    "z": 85.0
+   },
+   "Range": 15.625,
+   "Intensity": 1.6666666666666667,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_058",
+   "Position": {
+    "x": -9.0,
+    "y": 0.25,
+    "z": 93.5
+   },
+   "Range": 9.375,
+   "Intensity": 1.0,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_059",
+   "Position": {
+    "x": -5.25,
+    "y": -1.25,
+    "z": 86.75
+   },
+   "Range": 9.375,
+   "Intensity": 1.0,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_060",
+   "Position": {
+    "x": 5.0,
+    "y": 3.25,
+    "z": 88.25
+   },
+   "Range": 6.25,
+   "Intensity": 0.6666666666666666,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_061",
+   "Position": {
+    "x": -2.0,
+    "y": 4.25,
+    "z": 86.25
+   },
+   "Range": 4.6875,
+   "Intensity": 0.5,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_062",
+   "Position": {
+    "x": 0.5,
+    "y": -4.75,
+    "z": 88.5
+   },
+   "Range": 6.25,
+   "Intensity": 0.6666666666666666,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_063",
+   "Position": {
+    "x": 9.5,
+    "y": -4.75,
+    "z": 88.5
+   },
+   "Range": 6.25,
+   "Intensity": 0.6666666666666666,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_064",
+   "Position": {
+    "x": 15.75,
+    "y": 0.5,
+    "z": 88.0
+   },
+   "Range": 9.375,
+   "Intensity": 1.0,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_065",
+   "Position": {
+    "x": 5.0,
+    "y": -4.75,
+    "z": 88.75
+   },
+   "Range": 6.25,
+   "Intensity": 0.6666666666666666,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_066",
+   "Position": {
+    "x": 0.5,
+    "y": -2.75,
+    "z": 90.75
+   },
+   "Range": 2.5,
+   "Intensity": 0.26666666666666666,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_067",
+   "Position": {
+    "x": 9.5,
+    "y": -2.75,
+    "z": 90.75
+   },
+   "Range": 2.5,
+   "Intensity": 0.26666666666666666,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_068",
+   "Position": {
+    "x": 5.0,
+    "y": -2.75,
+    "z": 90.75
+   },
+   "Range": 2.5,
+   "Intensity": 0.26666666666666666,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_069",
+   "Position": {
+    "x": 0.0,
+    "y": -1.0,
+    "z": 56.25
+   },
+   "Range": 3.125,
+   "Intensity": 0.3333333333333333,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_070",
+   "Position": {
+    "x": 7.75,
+    "y": -1.0,
+    "z": 56.25
+   },
+   "Range": 3.125,
+   "Intensity": 0.3333333333333333,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_071",
+   "Position": {
+    "x": 0.25,
+    "y": 6.25,
+    "z": 73.5
+   },
+   "Range": 9.375,
+   "Intensity": 1.0,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_072",
+   "Position": {
+    "x": 1.0,
+    "y": 6.25,
+    "z": 74.75
+   },
+   "Range": 9.375,
+   "Intensity": 1.0,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_073",
+   "Position": {
+    "x": 1.75,
+    "y": 6.25,
+    "z": 73.5
+   },
+   "Range": 9.375,
+   "Intensity": 1.0,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_074",
+   "Position": {
+    "x": 1.0,
+    "y": 6.25,
+    "z": 72.25
+   },
+   "Range": 9.375,
+   "Intensity": 1.0,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_075",
+   "Position": {
+    "x": 1.0,
+    "y": 2.75,
+    "z": 73.5
+   },
+   "Range": 6.25,
+   "Intensity": 0.6666666666666666,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_076",
+   "Position": {
+    "x": 9.5,
+    "y": 3.0,
+    "z": 74.0
+   },
+   "Range": 9.375,
+   "Intensity": 1.0,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_077",
+   "Position": {
+    "x": 26.0,
+    "y": 0.5,
+    "z": 81.5
+   },
+   "Range": 6.875,
+   "Intensity": 0.7333333333333333,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_078",
+   "Position": {
+    "x": 26.0,
+    "y": 0.0,
+    "z": 77.5
+   },
+   "Range": 6.875,
+   "Intensity": 0.7333333333333333,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_079",
+   "Position": {
+    "x": 25.0,
+    "y": 0.75,
+    "z": 88.0
+   },
+   "Range": 7.5,
+   "Intensity": 0.8,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_080",
+   "Position": {
+    "x": 23.5,
+    "y": -2.75,
+    "z": 62.5
+   },
+   "Range": 12.5,
+   "Intensity": 1.3333333333333333,
+   "StartsOff": true
+  },
+  {
+   "Name": "light_081",
+   "Position": {
+    "x": 40.0,
+    "y": -4.75,
+    "z": 62.5
+   },
+   "Range": 12.5,
+   "Intensity": 1.3333333333333333,
+   "StartsOff": true
+  },
+  {
+   "Name": "light_082",
+   "Position": {
+    "x": 40.0,
+    "y": -6.75,
+    "z": 78.0
+   },
+   "Range": 12.5,
+   "Intensity": 1.3333333333333333,
+   "StartsOff": true
+  },
+  {
+   "Name": "light_083",
+   "Position": {
+    "x": 24.5,
+    "y": -8.75,
+    "z": 78.0
+   },
+   "Range": 9.375,
+   "Intensity": 1.0,
+   "StartsOff": true
+  },
+  {
+   "Name": "light_084",
+   "Position": {
+    "x": 42.75,
+    "y": -15.25,
+    "z": 80.75
+   },
+   "Range": 6.25,
+   "Intensity": 0.6666666666666666,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_085",
+   "Position": {
+    "x": 42.75,
+    "y": -15.25,
+    "z": 60.75
+   },
+   "Range": 6.25,
+   "Intensity": 0.6666666666666666,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_086",
+   "Position": {
+    "x": 21.75,
+    "y": -15.25,
+    "z": 80.75
+   },
+   "Range": 4.6875,
+   "Intensity": 0.5,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_087",
+   "Position": {
+    "x": 31.75,
+    "y": -15.25,
+    "z": 80.75
+   },
+   "Range": 6.25,
+   "Intensity": 0.6666666666666666,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_088",
+   "Position": {
+    "x": 31.75,
+    "y": -15.25,
+    "z": 60.75
+   },
+   "Range": 6.25,
+   "Intensity": 0.6666666666666666,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_089",
+   "Position": {
+    "x": 42.75,
+    "y": -15.25,
+    "z": 71.0
+   },
+   "Range": 6.25,
+   "Intensity": 0.6666666666666666,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_090",
+   "Position": {
+    "x": 21.75,
+    "y": -15.25,
+    "z": 71.0
+   },
+   "Range": 6.25,
+   "Intensity": 0.6666666666666666,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_091",
+   "Position": {
+    "x": 30.0,
+    "y": -15.25,
+    "z": 71.75
+   },
+   "Range": 6.25,
+   "Intensity": 0.6666666666666666,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_092",
+   "Position": {
+    "x": 32.25,
+    "y": -15.25,
+    "z": 73.5
+   },
+   "Range": 6.25,
+   "Intensity": 0.6666666666666666,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_093",
+   "Position": {
+    "x": 27.75,
+    "y": -15.25,
+    "z": 73.5
+   },
+   "Range": 6.25,
+   "Intensity": 0.6666666666666666,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_094",
+   "Position": {
+    "x": 30.0,
+    "y": -15.25,
+    "z": 75.25
+   },
+   "Range": 6.25,
+   "Intensity": 0.6666666666666666,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_095",
+   "Position": {
+    "x": 30.75,
+    "y": -9.5,
+    "z": 76.5
+   },
+   "Range": 3.125,
+   "Intensity": 0.3333333333333333,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_096",
+   "Position": {
+    "x": 26.0,
+    "y": 3.5,
+    "z": 73.75
+   },
+   "Range": 12.5,
+   "Intensity": 1.3333333333333333,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_097",
+   "Position": {
+    "x": 35.75,
+    "y": -15.25,
+    "z": 76.5
+   },
+   "Range": 9.375,
+   "Intensity": 1.0,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_098",
+   "Position": {
+    "x": 38.5,
+    "y": -15.25,
+    "z": 73.75
+   },
+   "Range": 9.375,
+   "Intensity": 1.0,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_099",
+   "Position": {
+    "x": 41.25,
+    "y": -15.25,
+    "z": 76.5
+   },
+   "Range": 6.25,
+   "Intensity": 0.6666666666666666,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_100",
+   "Position": {
+    "x": 38.5,
+    "y": -15.25,
+    "z": 79.25
+   },
+   "Range": 6.25,
+   "Intensity": 0.6666666666666666,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_101",
+   "Position": {
+    "x": 38.5,
+    "y": -15.25,
+    "z": 66.75
+   },
+   "Range": 9.375,
+   "Intensity": 1.0,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_102",
+   "Position": {
+    "x": 35.75,
+    "y": -15.25,
+    "z": 64.0
+   },
+   "Range": 9.375,
+   "Intensity": 1.0,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_103",
+   "Position": {
+    "x": 38.5,
+    "y": -15.25,
+    "z": 61.25
+   },
+   "Range": 6.25,
+   "Intensity": 0.6666666666666666,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_104",
+   "Position": {
+    "x": 41.25,
+    "y": -15.25,
+    "z": 64.0
+   },
+   "Range": 6.25,
+   "Intensity": 0.6666666666666666,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_105",
+   "Position": {
+    "x": 26.0,
+    "y": -6.25,
+    "z": 73.0
+   },
+   "Range": 9.375,
+   "Intensity": 1.0,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_106",
+   "Position": {
+    "x": 17.25,
+    "y": -1.75,
+    "z": 77.5
+   },
+   "Range": 6.25,
+   "Intensity": 0.6666666666666666,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_107",
+   "Position": {
+    "x": 17.0,
+    "y": -1.75,
+    "z": 71.75
+   },
+   "Range": 6.25,
+   "Intensity": 0.6666666666666666,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_108",
+   "Position": {
+    "x": 20.75,
+    "y": -1.75,
+    "z": 77.5
+   },
+   "Range": 6.25,
+   "Intensity": 0.6666666666666666,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_109",
+   "Position": {
+    "x": 26.0,
+    "y": -6.5,
+    "z": 65.75
+   },
+   "Range": 9.375,
+   "Intensity": 1.0,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_110",
+   "Position": {
+    "x": 26.0,
+    "y": -11.5,
+    "z": 64.0
+   },
+   "Range": 4.6875,
+   "Intensity": 0.5,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_111",
+   "Position": {
+    "x": 35.0,
+    "y": 3.5,
+    "z": 77.0
+   },
+   "Range": 9.375,
+   "Intensity": 1.0,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_112",
+   "Position": {
+    "x": 35.0,
+    "y": 3.5,
+    "z": 65.0
+   },
+   "Range": 9.375,
+   "Intensity": 1.0,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_113",
+   "Position": {
+    "x": 23.5,
+    "y": 3.5,
+    "z": 65.0
+   },
+   "Range": 6.25,
+   "Intensity": 0.6666666666666666,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_114",
+   "Position": {
+    "x": 32.75,
+    "y": -2.25,
+    "z": 71.25
+   },
+   "Range": 9.375,
+   "Intensity": 1.0,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_115",
+   "Position": {
+    "x": 35.5,
+    "y": -15.75,
+    "z": 57.75
+   },
+   "Range": 6.875,
+   "Intensity": 0.7333333333333333,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_116",
+   "Position": {
+    "x": 35.5,
+    "y": -15.75,
+    "z": 52.25
+   },
+   "Range": 6.875,
+   "Intensity": 0.7333333333333333,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_117",
+   "Position": {
+    "x": 31.5,
+    "y": -15.75,
+    "z": 52.25
+   },
+   "Range": 6.875,
+   "Intensity": 0.7333333333333333,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_118",
+   "Position": {
+    "x": 31.5,
+    "y": -15.75,
+    "z": 57.75
+   },
+   "Range": 6.875,
+   "Intensity": 0.7333333333333333,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_119",
+   "Position": {
+    "x": 40.25,
+    "y": -15.75,
+    "z": 57.75
+   },
+   "Range": 6.875,
+   "Intensity": 0.7333333333333333,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_120",
+   "Position": {
+    "x": 43.75,
+    "y": -15.75,
+    "z": 49.5
+   },
+   "Range": 6.875,
+   "Intensity": 0.7333333333333333,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_121",
+   "Position": {
+    "x": 38.25,
+    "y": -15.75,
+    "z": 49.5
+   },
+   "Range": 6.875,
+   "Intensity": 0.7333333333333333,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_122",
+   "Position": {
+    "x": 43.75,
+    "y": -15.75,
+    "z": 54.25
+   },
+   "Range": 6.875,
+   "Intensity": 0.7333333333333333,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_123",
+   "Position": {
+    "x": 27.5,
+    "y": -15.75,
+    "z": 52.25
+   },
+   "Range": 6.875,
+   "Intensity": 0.7333333333333333,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_124",
+   "Position": {
+    "x": 23.25,
+    "y": -15.75,
+    "z": 52.25
+   },
+   "Range": 6.875,
+   "Intensity": 0.7333333333333333,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_125",
+   "Position": {
+    "x": 41.0,
+    "y": -12.25,
+    "z": 51.5
+   },
+   "Range": 6.875,
+   "Intensity": 0.7333333333333333,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_126",
+   "Position": {
+    "x": 41.0,
+    "y": -12.25,
+    "z": 47.5
+   },
+   "Range": 5.3125,
+   "Intensity": 0.5666666666666667,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_127",
+   "Position": {
+    "x": 37.5,
+    "y": -12.25,
+    "z": 55.0
+   },
+   "Range": 6.875,
+   "Intensity": 0.7333333333333333,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_128",
+   "Position": {
+    "x": 33.5,
+    "y": -12.25,
+    "z": 55.0
+   },
+   "Range": 5.3125,
+   "Intensity": 0.5666666666666667,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_129",
+   "Position": {
+    "x": 29.5,
+    "y": -12.25,
+    "z": 55.0
+   },
+   "Range": 5.3125,
+   "Intensity": 0.5666666666666667,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_130",
+   "Position": {
+    "x": 26.0,
+    "y": -6.5,
+    "z": 62.25
+   },
+   "Range": 6.875,
+   "Intensity": 0.7333333333333333,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_131",
+   "Position": {
+    "x": 23.25,
+    "y": -15.75,
+    "z": 57.25
+   },
+   "Range": 9.375,
+   "Intensity": 1.0,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_132",
+   "Position": {
+    "x": 26.0,
+    "y": -12.25,
+    "z": 55.0
+   },
+   "Range": 5.3125,
+   "Intensity": 0.5666666666666667,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_133",
+   "Position": {
+    "x": 21.25,
+    "y": -15.75,
+    "z": 60.5
+   },
+   "Range": 6.875,
+   "Intensity": 0.7333333333333333,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_134",
+   "Position": {
+    "x": 41.0,
+    "y": -11.0,
+    "z": 43.5
+   },
+   "Range": 5.3125,
+   "Intensity": 0.5666666666666667,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_135",
+   "Position": {
+    "x": 41.0,
+    "y": -9.0,
+    "z": 39.5
+   },
+   "Range": 5.3125,
+   "Intensity": 0.5666666666666667,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_136",
+   "Position": {
+    "x": 41.0,
+    "y": -7.25,
+    "z": 35.5
+   },
+   "Range": 9.375,
+   "Intensity": 1.0,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_137",
+   "Position": {
+    "x": 38.25,
+    "y": -15.75,
+    "z": 45.5
+   },
+   "Range": 6.875,
+   "Intensity": 0.7333333333333333,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_138",
+   "Position": {
+    "x": 43.75,
+    "y": -15.75,
+    "z": 45.5
+   },
+   "Range": 6.875,
+   "Intensity": 0.7333333333333333,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_139",
+   "Position": {
+    "x": 43.75,
+    "y": -15.75,
+    "z": 41.5
+   },
+   "Range": 6.875,
+   "Intensity": 0.7333333333333333,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_140",
+   "Position": {
+    "x": 38.25,
+    "y": -15.75,
+    "z": 41.5
+   },
+   "Range": 6.875,
+   "Intensity": 0.7333333333333333,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_141",
+   "Position": {
+    "x": 38.25,
+    "y": -15.75,
+    "z": 37.5
+   },
+   "Range": 6.875,
+   "Intensity": 0.7333333333333333,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_142",
+   "Position": {
+    "x": 43.75,
+    "y": -15.75,
+    "z": 37.5
+   },
+   "Range": 6.875,
+   "Intensity": 0.7333333333333333,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_143",
+   "Position": {
+    "x": 41.0,
+    "y": -6.5,
+    "z": 30.0
+   },
+   "Range": 9.375,
+   "Intensity": 1.0,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_144",
+   "Position": {
+    "x": 41.0,
+    "y": -14.75,
+    "z": 28.5
+   },
+   "Range": 9.375,
+   "Intensity": 1.0,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_145",
+   "Position": {
+    "x": 41.0,
+    "y": -11.5,
+    "z": 33.75
+   },
+   "Range": 9.375,
+   "Intensity": 1.0,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_146",
+   "Position": {
+    "x": 35.25,
+    "y": -15.75,
+    "z": 33.25
+   },
+   "Range": 5.3125,
+   "Intensity": 0.5666666666666667,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_147",
+   "Position": {
+    "x": 35.25,
+    "y": -15.75,
+    "z": 26.75
+   },
+   "Range": 5.3125,
+   "Intensity": 0.5666666666666667,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_148",
+   "Position": {
+    "x": 46.75,
+    "y": -15.75,
+    "z": 26.75
+   },
+   "Range": 5.3125,
+   "Intensity": 0.5666666666666667,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_149",
+   "Position": {
+    "x": 46.75,
+    "y": -15.75,
+    "z": 33.25
+   },
+   "Range": 5.3125,
+   "Intensity": 0.5666666666666667,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_150",
+   "Position": {
+    "x": 41.0,
+    "y": -15.75,
+    "z": 24.25
+   },
+   "Range": 5.3125,
+   "Intensity": 0.5666666666666667,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_151",
+   "Position": {
+    "x": 33.5,
+    "y": -5.25,
+    "z": 32.0
+   },
+   "Range": 9.375,
+   "Intensity": 1.0,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_152",
+   "Position": {
+    "x": 24.75,
+    "y": -7.75,
+    "z": 27.75
+   },
+   "Range": 6.875,
+   "Intensity": 0.7333333333333333,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_153",
+   "Position": {
+    "x": 29.5,
+    "y": -7.75,
+    "z": 19.0
+   },
+   "Range": 5.625,
+   "Intensity": 0.6,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_154",
+   "Position": {
+    "x": 24.75,
+    "y": -7.75,
+    "z": 16.0
+   },
+   "Range": 4.6875,
+   "Intensity": 0.5,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_155",
+   "Position": {
+    "x": 24.75,
+    "y": -1.75,
+    "z": 16.0
+   },
+   "Range": 4.6875,
+   "Intensity": 0.5,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_156",
+   "Position": {
+    "x": 19.5,
+    "y": -7.5,
+    "z": 29.0
+   },
+   "Range": 6.875,
+   "Intensity": 0.7333333333333333,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_157",
+   "Position": {
+    "x": 15.75,
+    "y": -7.75,
+    "z": 37.5
+   },
+   "Range": 6.875,
+   "Intensity": 0.7333333333333333,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_158",
+   "Position": {
+    "x": 29.25,
+    "y": -7.75,
+    "z": 25.0
+   },
+   "Range": 5.625,
+   "Intensity": 0.6,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_159",
+   "Position": {
+    "x": 30.0,
+    "y": -6.5,
+    "z": 30.75
+   },
+   "Range": 5.625,
+   "Intensity": 0.6,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_160",
+   "Position": {
+    "x": 24.75,
+    "y": 4.0,
+    "z": 16.0
+   },
+   "Range": 4.6875,
+   "Intensity": 0.5,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_161",
+   "Position": {
+    "x": 26.0,
+    "y": -12.0,
+    "z": 60.25
+   },
+   "Range": 4.6875,
+   "Intensity": 0.5,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_162",
+   "Position": {
+    "x": 22.25,
+    "y": -11.25,
+    "z": 63.75
+   },
+   "Range": 3.125,
+   "Intensity": 0.3333333333333333,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_163",
+   "Position": {
+    "x": -11.0,
+    "y": -0.75,
+    "z": 91.0
+   },
+   "Range": 3.75,
+   "Intensity": 0.4,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_164",
+   "Position": {
+    "x": 5.0,
+    "y": 0.0,
+    "z": 94.5
+   },
+   "Range": 3.75,
+   "Intensity": 0.4,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_165 (style 10)",
+   "Position": {
+    "x": 21.5,
+    "y": 2.5,
+    "z": 0.0
+   },
+   "Range": 3.125,
+   "Intensity": 0.3333333333333333,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_166",
+   "Position": {
+    "x": 0.0,
+    "y": -2.75,
+    "z": 19.75
+   },
+   "Range": 3.125,
+   "Intensity": 0.3333333333333333,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_167",
+   "Position": {
+    "x": 26.0,
+    "y": -15.75,
+    "z": 58.75
+   },
+   "Range": 6.875,
+   "Intensity": 0.7333333333333333,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_168",
+   "Position": {
+    "x": -4.0,
+    "y": 2.25,
+    "z": 18.25
+   },
+   "Range": 6.25,
+   "Intensity": 0.6666666666666666,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_169",
+   "Position": {
+    "x": -4.0,
+    "y": -4.25,
+    "z": 17.75
+   },
+   "Range": 6.25,
+   "Intensity": 0.6666666666666666,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_170",
+   "Position": {
+    "x": -1.75,
+    "y": -5.25,
+    "z": 19.75
+   },
+   "Range": 3.125,
+   "Intensity": 0.3333333333333333,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_171",
+   "Position": {
+    "x": -1.75,
+    "y": -4.25,
+    "z": 27.0
+   },
+   "Range": 6.25,
+   "Intensity": 0.6666666666666666,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_172",
+   "Position": {
+    "x": 1.25,
+    "y": -1.25,
+    "z": 52.25
+   },
+   "Range": 6.25,
+   "Intensity": 0.6666666666666666,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_173",
+   "Position": {
+    "x": 6.75,
+    "y": -1.25,
+    "z": 52.25
+   },
+   "Range": 6.25,
+   "Intensity": 0.6666666666666666,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_174",
+   "Position": {
+    "x": 4.0,
+    "y": -4.75,
+    "z": 33.75
+   },
+   "Range": 6.25,
+   "Intensity": 0.6666666666666666,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_175",
+   "Position": {
+    "x": 4.0,
+    "y": 2.25,
+    "z": 34.25
+   },
+   "Range": 6.25,
+   "Intensity": 0.6666666666666666,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_176",
+   "Position": {
+    "x": -11.0,
+    "y": 2.25,
+    "z": 51.75
+   },
+   "Range": 7.8125,
+   "Intensity": 0.8333333333333334,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_177",
+   "Position": {
+    "x": 19.0,
+    "y": 2.25,
+    "z": 51.25
+   },
+   "Range": 7.8125,
+   "Intensity": 0.8333333333333334,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_178",
+   "Position": {
+    "x": -1.5,
+    "y": -10.0,
+    "z": 35.75
+   },
+   "Range": 5.3125,
+   "Intensity": 0.5666666666666667,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_179",
+   "Position": {
+    "x": -1.5,
+    "y": -10.0,
+    "z": 39.25
+   },
+   "Range": 5.3125,
+   "Intensity": 0.5666666666666667,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_180",
+   "Position": {
+    "x": 10.0,
+    "y": -10.0,
+    "z": 39.25
+   },
+   "Range": 5.3125,
+   "Intensity": 0.5666666666666667,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_181",
+   "Position": {
+    "x": 9.75,
+    "y": -10.0,
+    "z": 35.25
+   },
+   "Range": 5.3125,
+   "Intensity": 0.5666666666666667,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_182",
+   "Position": {
+    "x": 4.25,
+    "y": -10.0,
+    "z": 35.25
+   },
+   "Range": 5.3125,
+   "Intensity": 0.5666666666666667,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_183",
+   "Position": {
+    "x": 4.25,
+    "y": -10.0,
+    "z": 39.75
+   },
+   "Range": 5.3125,
+   "Intensity": 0.5666666666666667,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_184",
+   "Position": {
+    "x": 31.5,
+    "y": -12.75,
+    "z": 66.5
+   },
+   "Range": 4.6875,
+   "Intensity": 0.5,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_185",
+   "Position": {
+    "x": 41.0,
+    "y": -5.75,
+    "z": 17.0
+   },
+   "Range": 7.8125,
+   "Intensity": 0.8333333333333334,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_186",
+   "Position": {
+    "x": 37.75,
+    "y": -5.75,
+    "z": 14.25
+   },
+   "Range": 6.25,
+   "Intensity": 0.6666666666666666,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_187",
+   "Position": {
+    "x": 44.25,
+    "y": -5.75,
+    "z": 14.25
+   },
+   "Range": 6.25,
+   "Intensity": 0.6666666666666666,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_188",
+   "Position": {
+    "x": 41.0,
+    "y": -1.75,
+    "z": 22.75
+   },
+   "Range": 5.3125,
+   "Intensity": 0.5666666666666667,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_189",
+   "Position": {
+    "x": 21.5,
+    "y": -5.0,
+    "z": 52.5
+   },
+   "Range": 5.0,
+   "Intensity": 0.5333333333333333,
+   "StartsOff": false
+  },
+  {
+   "Name": "light_190",
+   "Position": {
+    "x": -12.25,
+    "y": -5.0,
+    "z": 52.75
+   },
+   "Range": 5.0,
+   "Intensity": 0.5333333333333333,
+   "StartsOff": false
+  }
+ ],
+ "Views": [
+  {
+   "Name": "info_player_start",
+   "Position": {
+    "x": 15.0,
+    "y": 3.4375,
+    "z": -11.0
+   },
+   "Rotation": {
+    "x": 0.0,
+    "y": 0.0,
+    "z": 0.0
+   }
+  },
+  {
+   "Name": "info_intermission_1",
+   "Position": {
+    "x": -3.5,
+    "y": 1.75,
+    "z": 22.0
+   },
+   "Rotation": {
+    "x": 20.0,
+    "y": 45.0,
+    "z": 0.0
+   }
+  },
+  {
+   "Name": "info_intermission_2",
+   "Position": {
+    "x": -6.5,
+    "y": 6.0,
+    "z": 85.5
+   },
+   "Rotation": {
+    "x": 20.0,
+    "y": -135.0,
+    "z": 0.0
+   }
+  },
+  {
+   "Name": "info_intermission_3",
+   "Position": {
+    "x": 7.5,
+    "y": 3.25,
+    "z": 83.25
+   },
+   "Rotation": {
+    "x": 20.0,
+    "y": -30.0,
+    "z": 0.0
+   }
+  },
+  {
+   "Name": "info_intermission_4",
+   "Position": {
+    "x": 43.0,
+    "y": 2.0,
+    "z": 60.5
+   },
+   "Rotation": {
+    "x": 20.0,
+    "y": -45.0,
+    "z": 0.0
+   }
+  }
+ ]
+}

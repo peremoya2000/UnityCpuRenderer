@@ -28,9 +28,22 @@ The full design and milestone list live in [CpuRendererDocs/DESIGN.md](CpuRender
 
 Open the project in Unity and play `Assets/Scenes/SampleScene.unity`.
 
+## Licence
+
+Copyright 2026 Pere Moyà Serra. Source-available under the
+[PolyForm Noncommercial License 1.0.0](LICENSE.md): you may use, modify and share this code for
+non-commercial purposes, keeping the copyright notice. Commercial use, including selling it, is not
+permitted.
+
+## Demo level
+
+`Assets/E1M1` contains a demo level converted from the GPL release of Quake's E1M1 map source. It is
+licensed separately under GPL-2.0; see [its README](Assets/E1M1/README.md). Nothing outside that folder
+is covered by the GPL.
+
 ## Use of AI
 
-I wrote all of the code by hand.
+I wrote all of the renderer code by hand.
 
 AI (Claude) is used for:
 - drafting and editing the Markdown documentation, including the design doc and this README

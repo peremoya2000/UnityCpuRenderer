@@ -1,0 +1,272 @@
+newmtl star_slime0
+Kd 1 1 1
+map_Kd Textures/star_slime0.png
+
+newmtl star_teleport
+Kd 1 1 1
+map_Kd Textures/star_teleport.png
+
+newmtl star_water0
+Kd 1 1 1
+map_Kd Textures/star_water0.png
+
+newmtl plus_0basebtn
+Kd 1 1 1
+map_Kd Textures/plus_0basebtn.png
+
+newmtl plus_0planet
+Kd 1 1 1
+map_Kd Textures/plus_0planet.png
+
+newmtl plus_0slip
+Kd 1 1 1
+map_Kd Textures/plus_0slip.png
+
+newmtl plus_0slipbot
+Kd 1 1 1
+map_Kd Textures/plus_0slipbot.png
+
+newmtl plus_0sliptop
+Kd 1 1 1
+map_Kd Textures/plus_0sliptop.png
+
+newmtl basebutn3
+Kd 1 1 1
+map_Kd Textures/basebutn3.png
+
+newmtl comp1_1
+Kd 1 1 1
+map_Kd Textures/comp1_1.png
+
+newmtl comp1_2
+Kd 1 1 1
+map_Kd Textures/comp1_2.png
+
+newmtl comp1_3
+Kd 1 1 1
+map_Kd Textures/comp1_3.png
+
+newmtl comp1_4
+Kd 1 1 1
+map_Kd Textures/comp1_4.png
+
+newmtl comp1_5
+Kd 1 1 1
+map_Kd Textures/comp1_5.png
+
+newmtl comp1_6
+Kd 1 1 1
+map_Kd Textures/comp1_6.png
+
+newmtl crate0_side
+Kd 1 1 1
+map_Kd Textures/crate0_side.png
+
+newmtl crate0_top
+Kd 1 1 1
+map_Kd Textures/crate0_top.png
+
+newmtl door02_1
+Kd 1 1 1
+map_Kd Textures/door02_1.png
+
+newmtl ecop1_1
+Kd 1 1 1
+map_Kd Textures/ecop1_1.png
+
+newmtl ecop1_4
+Kd 1 1 1
+map_Kd Textures/ecop1_4.png
+
+newmtl ecop1_6
+Kd 1 1 1
+map_Kd Textures/ecop1_6.png
+
+newmtl edoor01_1
+Kd 1 1 1
+map_Kd Textures/edoor01_1.png
+
+newmtl ground1_2
+Kd 1 1 1
+map_Kd Textures/ground1_2.png
+
+newmtl ground1_6
+Kd 1 1 1
+map_Kd Textures/ground1_6.png
+
+newmtl key01_3
+Kd 1 1 1
+map_Kd Textures/key01_3.png
+
+newmtl plat_side1
+Kd 1 1 1
+map_Kd Textures/plat_side1.png
+
+newmtl plat_stem
+Kd 1 1 1
+map_Kd Textures/plat_stem.png
+
+newmtl plat_top1
+Kd 1 1 1
+map_Kd Textures/plat_top1.png
+
+newmtl sfloor4_2
+Kd 1 1 1
+map_Kd Textures/sfloor4_2.png
+
+newmtl sfloor4_5
+Kd 1 1 1
+map_Kd Textures/sfloor4_5.png
+
+newmtl sky4
+Kd 1 1 1
+map_Kd Textures/sky4.png
+
+newmtl slip1
+Kd 1 1 1
+map_Kd Textures/slip1.png
+
+newmtl slipbotsd
+Kd 1 1 1
+map_Kd Textures/slipbotsd.png
+
+newmtl sliplite
+Kd 1 1 1
+map_Kd Textures/sliplite_fbr.png
+
+newmtl slipside
+Kd 1 1 1
+map_Kd Textures/slipside.png
+
+newmtl sliptopsd
+Kd 1 1 1
+map_Kd Textures/sliptopsd.png
+
+newmtl switch_1
+Kd 1 1 1
+map_Kd Textures/switch_1.png
+
+newmtl tech01_1
+Kd 1 1 1
+map_Kd Textures/tech01_1.png
+
+newmtl tech01_6
+Kd 1 1 1
+map_Kd Textures/tech01_6.png
+
+newmtl tech01_7
+Kd 1 1 1
+map_Kd Textures/tech01_7.png
+
+newmtl tech01_9
+Kd 1 1 1
+map_Kd Textures/tech01_9.png
+
+newmtl tech04_1
+Kd 1 1 1
+map_Kd Textures/tech04_1.png
+
+newmtl tech04_2
+Kd 1 1 1
+map_Kd Textures/tech04_2.png
+
+newmtl tech04_3
+Kd 1 1 1
+map_Kd Textures/tech04_3.png
+
+newmtl tech07_2
+Kd 1 1 1
+map_Kd Textures/tech07_2.png
+
+newmtl tech08_1
+Kd 1 1 1
+map_Kd Textures/tech08_1.png
+
+newmtl tech09_3
+Kd 1 1 1
+map_Kd Textures/tech09_3.png
+
+newmtl tech10_1
+Kd 1 1 1
+map_Kd Textures/tech10_1.png
+
+newmtl tech10_3
+Kd 1 1 1
+map_Kd Textures/tech10_3.png
+
+newmtl tech11_2
+Kd 1 1 1
+map_Kd Textures/tech11_2.png
+
+newmtl tlight01
+Kd 1 1 1
+map_Kd Textures/tlight01.png
+
+newmtl tlight02
+Kd 1 1 1
+map_Kd Textures/tlight02.png
+
+newmtl tlight07
+Kd 1 1 1
+map_Kd Textures/tlight07.png
+
+newmtl tlight08
+Kd 1 1 1
+map_Kd Textures/tlight08.png
+
+newmtl tlight10
+Kd 1 1 1
+map_Kd Textures/tlight10.png
+
+newmtl tlight11
+Kd 1 1 1
+map_Kd Textures/tlight11.png
+
+newmtl twall1_1
+Kd 1 1 1
+map_Kd Textures/twall1_1.png
+
+newmtl twall1_2
+Kd 1 1 1
+map_Kd Textures/twall1_2.png
+
+newmtl twall2_1
+Kd 1 1 1
+map_Kd Textures/twall2_1.png
+
+newmtl twall2_2
+Kd 1 1 1
+map_Kd Textures/twall2_2.png
+
+newmtl twall2_3
+Kd 1 1 1
+map_Kd Textures/twall2_3.png
+
+newmtl twall2_5
+Kd 1 1 1
+map_Kd Textures/twall2_5.png
+
+newmtl twall2_6
+Kd 1 1 1
+map_Kd Textures/twall2_6.png
+
+newmtl twall3_1
+Kd 1 1 1
+map_Kd Textures/twall3_1.png
+
+newmtl twall5_1
+Kd 1 1 1
+map_Kd Textures/twall5_1.png
+
+newmtl twall5_3
+Kd 1 1 1
+map_Kd Textures/twall5_3.png
+
+newmtl uwall1_2
+Kd 1 1 1
+map_Kd Textures/uwall1_2.png
+
+newmtl z_exit
+Kd 1 1 1
+map_Kd Textures/z_exit.png
+
