@@ -1,8 +1,17 @@
 using Unity.Collections;
 using Unity.Mathematics;
+using UnityEngine;
 
 public static class Geometry
 {
+    public struct ClippedTriangle
+    {
+        public float4 V0;
+        public float4 V1;
+        public float4 V2;
+        public Color32 Color;
+    }
+
     public static FixedList512Bytes<float4> ClipTriangle(float4 v0, float4 v1, float4 v2, float near, float guardBandScale)
     {
         FixedList512Bytes<float4> polygon = default;
@@ -41,6 +50,12 @@ public static class Geometry
         }
 
         return false;
+    }
+
+    public static Color32 HashedColor(int i)
+    {
+        uint hash = (uint)i * 2654435761u;
+        return new Color32((byte)(hash >> 24), (byte)(hash >> 16), (byte)(hash >> 8), 255);
     }
 
     private static bool IsBoxOutsidePlane(float4 plane, float3 center, float3 extents)

@@ -1,13 +1,33 @@
+using System;
 using Unity.Collections;
+using Unity.Jobs;
 using Unity.Mathematics;
+using Unity.Profiling;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using static Rasterizer;
 
 public class CpuRenderer : MonoBehaviour
 {
+    public struct MeshInstance
+    {
+        public MeshEntry Mesh;
+        public float4x4 ModelViewProjection;
+        public float3 LocalCameraPosition;
+        public int FirstClipVertex;
+    }
+
     private const int TILE_SIZE = 32;
     private const int CACHE_LINE_PADDING = 16;
+
+    private static readonly ProfilerMarker clearMarker = new ProfilerMarker("CpuRenderer.Clear");
+    private static readonly ProfilerMarker gatherMarker = new ProfilerMarker("CpuRenderer.Gather");
+    private static readonly ProfilerMarker worldToClipMarker = new ProfilerMarker("CpuRenderer.WorldToClip");
+    private static readonly ProfilerMarker cullClipMarker = new ProfilerMarker("CpuRenderer.CullClip");
+    private static readonly ProfilerMarker setupMarker = new ProfilerMarker("CpuRenderer.Setup");
+    private static readonly ProfilerMarker rasterMarker = new ProfilerMarker("CpuRenderer.Raster");
+    private static readonly ProfilerMarker applyMarker = new ProfilerMarker("CpuRenderer.Apply");
 
     public Vector2 RenderResolution = new Vector2(640, 360);
     public RawImage RawImage;
@@ -18,9 +38,12 @@ public class CpuRenderer : MonoBehaviour
     private NativeArray<float> depthBuffer;
     private Vector2Int lastScreenSize;
     private FrameTimeStatistics frameTimeStatistics;
-
+    private StageTimings stageTimings;
+    private NativeList<MeshInstance> meshInstances;
     private MeshLibrary meshLibrary;
     private NativeList<float4> clipVertices;
+    private NativeList<Geometry.ClippedTriangle> clippedTriangles;
+    private NativeList<TriangleSetup> triangleSetups;
 
 
     public int GetIntegerScaling()
@@ -59,12 +82,16 @@ public class CpuRenderer : MonoBehaviour
 
         meshLibrary = new MeshLibrary();
         clipVertices = new NativeList<float4>(Allocator.Persistent);
+        meshInstances = new NativeList<MeshInstance>(Allocator.Persistent);
+        triangleSetups = new NativeList<TriangleSetup>(Allocator.Persistent);
+        clippedTriangles = new NativeList<Geometry.ClippedTriangle>(Allocator.Persistent);
         depthBuffer = new NativeArray<float>(paddedResolution.x * paddedResolution.y, Allocator.Persistent);
 
         Debug.Assert(Camera != null, "Camera is not assigned.", this);
         Camera.enabled = false;
 
         frameTimeStatistics = new FrameTimeStatistics();
+        stageTimings = new StageTimings();
 
 #if UNITY_EDITOR
         GeometryTests.Run();
@@ -80,16 +107,11 @@ public class CpuRenderer : MonoBehaviour
 
         if (Keyboard.current.f12Key.wasPressedThisFrame)
         {
-            ScreenCapture.CaptureScreenshot($"Screenshot_{Screen.width}x{Screen.height}.png");
+            ScreenCapture.CaptureScreenshot($"Screenshot_{Screen.width}x{Screen.height}_{DateTime.Now.ToString("dd_HH-mm-ss")}.png");
         }
 
         frameTimeStatistics.StartMeasuringFrame();
         NativeArray<Color32> pixels = colorBuffer.GetRawTextureData<Color32>();
-        for (int i = 0; i < pixels.Length; ++i)
-        {
-            pixels[i] = new Color32(32, 32, 32, 255);
-            depthBuffer[i] = 0f;
-        }
 
         Framebuffer framebuffer = new Framebuffer
         {
@@ -98,24 +120,61 @@ public class CpuRenderer : MonoBehaviour
             BufferWidth = paddedResolution.x,
             RenderSize = new int2((int)RenderResolution.x, (int)RenderResolution.y),
         };
+        using (clearMarker.Auto())
+        {
+            new ClearJob { Framebuffer = framebuffer, ClearColor = new Color32(32, 32, 32, 255) }.Run();
+        }
 
         //Unity uses forward = Z, but Matrix4x4.Perspective expects forward = -Z, so we need to flip the Z axis in the view matrix.
         Matrix4x4 view = Matrix4x4.Scale(new Vector3(1, 1, -1)) * Matrix4x4.TRS(Camera.transform.position, Camera.transform.rotation, Vector3.one).inverse;
         Matrix4x4 perspective = Matrix4x4.Perspective(Camera.fieldOfView, RenderResolution.x / RenderResolution.y, Camera.nearClipPlane, 1000f);
         Matrix4x4 viewProjection = perspective * view;
 
-        MeshRenderer[] renderers = FindObjectsByType<MeshRenderer>(FindObjectsSortMode.InstanceID);
-        for (int i = 0; i < renderers.Length; ++i)
+        using (gatherMarker.Auto()) { GatherInstances(viewProjection); }
+
+        using (worldToClipMarker.Auto())
         {
-            MeshRenderer renderer = renderers[i];
-            if (!renderer.enabled) continue;
-            Bounds bounds = renderer.bounds;
-            if (Geometry.IsBoxOffScreen(viewProjection, bounds.center, bounds.extents, Camera.nearClipPlane))
+            new WorldToClipJob
             {
-                continue;
-            }
-            MeshEntry range = meshLibrary.GetOrAdd(GetMesh(renderer));
-            RenderMesh(range, renderer.transform.localToWorldMatrix, viewProjection, framebuffer);
+                Instances = meshInstances.AsArray(),
+                VertexBuffer = meshLibrary.VertexBuffer.AsArray(),
+                ClipVertices = clipVertices.AsArray(),
+            }.Run();
+        }
+
+        using (cullClipMarker.Auto())
+        {
+            clippedTriangles.Clear();
+            new CullClipJob
+            {
+                Instances = meshInstances.AsArray(),
+                VertexBuffer = meshLibrary.VertexBuffer.AsArray(),
+                IndexBuffer = meshLibrary.IndexBuffer.AsArray(),
+                FaceNormals = meshLibrary.FaceNormals.AsArray(),
+                ClipVertices = clipVertices.AsArray(),
+                Near = Camera.nearClipPlane,
+                ClippedTriangles = clippedTriangles,
+            }.Run();
+        }
+
+        using (setupMarker.Auto())
+        {
+            triangleSetups.Resize(clippedTriangles.Length, NativeArrayOptions.UninitializedMemory);
+            new SetupTrianglesJob
+            {
+                ClippedTriangles = clippedTriangles.AsArray(),
+                Setups = triangleSetups.AsArray(),
+                RenderSize = new int2((int)RenderResolution.x, (int)RenderResolution.y),
+            }.Run();
+        }
+
+        using (rasterMarker.Auto())
+        {
+            new RasterJob
+            {
+                Setups = triangleSetups.AsArray(),
+                Framebuffer = framebuffer,
+            }.Run();
         }
 
         if (Keyboard.current.ctrlKey.isPressed)
@@ -127,38 +186,45 @@ public class CpuRenderer : MonoBehaviour
             }
         }
 
-        colorBuffer.Apply(false, false);
+        using (applyMarker.Auto())
+        {
+            colorBuffer.Apply(false, false);
+        }
 
         frameTimeStatistics.FinishMeasuringFrame();
         if (Time.realtimeSinceStartup % 1f < Time.deltaTime)
         {
             Debug.Log(frameTimeStatistics.GetDetailedStats());
+            Debug.Log(stageTimings.GetStats());
         }
     }
 
-    private void RenderMesh(MeshEntry meshEntry, Matrix4x4 modelMatrix, Matrix4x4 viewProjection, Framebuffer framebuffer)
+    private void GatherInstances(Matrix4x4 viewProjection)
     {
-        float4x4 mvp = viewProjection * modelMatrix;
+        meshInstances.Clear();
+        int clipVertexCount = 0;
 
-        float3 localCameraPos = math.mul(math.inverse(modelMatrix), new float4(Camera.transform.position, 1f)).xyz;
-
-        clipVertices.Resize(meshEntry.VertexCount, NativeArrayOptions.UninitializedMemory);
-        for (int v = 0; v < meshEntry.VertexCount; ++v)
+        MeshRenderer[] renderers = FindObjectsByType<MeshRenderer>(FindObjectsSortMode.InstanceID);
+        for (int i = 0; i < renderers.Length; ++i)
         {
-            clipVertices[v] = math.mul(mvp, new float4(meshLibrary.VertexBuffer[meshEntry.FirstVertex + v], 1f));
+            MeshRenderer renderer = renderers[i];
+            if (!renderer.enabled) continue;
+            Bounds bounds = renderer.bounds;
+            if (Geometry.IsBoxOffScreen(viewProjection, bounds.center, bounds.extents, Camera.nearClipPlane))
+            {
+                continue;
+            }
+            MeshInstance meshInstance = default;
+            meshInstance.Mesh = meshLibrary.GetOrAdd(GetMesh(renderer));
+            meshInstance.ModelViewProjection = viewProjection * renderer.transform.localToWorldMatrix;
+            meshInstance.LocalCameraPosition = math.mul(math.inverse(renderer.transform.localToWorldMatrix), new float4(Camera.transform.position, 1f)).xyz;
+            meshInstance.FirstClipVertex = clipVertexCount;
+            meshInstances.Add(meshInstance);
+
+            clipVertexCount += meshInstance.Mesh.VertexCount;
         }
 
-        float near = Camera.nearClipPlane;
-        for (int t = meshEntry.FirstTriangle; t < meshEntry.FirstTriangle + meshEntry.TriangleCount; ++t)
-        {
-            int i0 = meshLibrary.IndexBuffer[t * 3 + 0];
-            int i1 = meshLibrary.IndexBuffer[t * 3 + 1];
-            int i2 = meshLibrary.IndexBuffer[t * 3 + 2];
-            if (math.dot(meshLibrary.FaceNormals[t], meshLibrary.VertexBuffer[meshEntry.FirstVertex + i0] - localCameraPos) > 0f) continue;
-
-            FixedList512Bytes<float4> polygon = Geometry.ClipTriangle(clipVertices[i0], clipVertices[i1], clipVertices[i2], near, Rasterizer.GUARD_BAND_SCALE);
-            Rasterizer.DrawPolygon(framebuffer, polygon, StripeColor(1 + t));
-        }
+        clipVertices.Resize(clipVertexCount, NativeArrayOptions.UninitializedMemory);
     }
 
     private static Mesh GetMesh(MeshRenderer renderer)
@@ -169,14 +235,6 @@ public class CpuRenderer : MonoBehaviour
         Debug.Assert(!renderer.isPartOfStaticBatch, $"{renderer.name} was static-batched. Turn off Static Batching in Player Settings.", renderer);
         return filter.sharedMesh;
     }
-
-
-    private static Color32 StripeColor(int i)
-    {
-        uint hash = (uint)i * 2654435761u;
-        return new Color32((byte)(hash >> 24), (byte)(hash >> 16), (byte)(hash >> 8), 255);
-    }
-
 
     private void OnDestroy()
     {
@@ -193,7 +251,20 @@ public class CpuRenderer : MonoBehaviour
         {
             clipVertices.Dispose();
         }
+        if (meshInstances.IsCreated)
+        {
+            meshInstances.Dispose();
+        }
+        if (clippedTriangles.IsCreated)
+        {
+            clippedTriangles.Dispose();
+        }
+        if (triangleSetups.IsCreated)
+        {
+            triangleSetups.Dispose();
+        }
         meshLibrary?.Dispose();
+        stageTimings?.Dispose();
     }
 
     private void OnValidate()
