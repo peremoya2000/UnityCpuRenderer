@@ -96,15 +96,17 @@ Ordering rationale — everything cheap that can reject a triangle happens befor
 Baseline is **single pass**: rasterize, depth-test, shade what passes.
 
 ```
-0. Gather lights + blobs whose screen rect overlaps the tile   -> tile-local lists
-1. Raster + depth test + shade, in bin order                   -> color + depth
-2. Raster transparent, depth-test only                         -> per-pixel fragment lists   [optional]
-3. Per pixel: sort back-to-front, blend over                   -> color                      [optional]
+0. Clear the tile's rect                                       -> color + depth
+1. Gather lights + blobs whose screen rect overlaps the tile   -> tile-local lists
+2. Raster + depth test + shade, in bin order                   -> color + depth
+3. Raster transparent, depth-test only                         -> per-pixel fragment lists   [optional]
+4. Per pixel: sort back-to-front, blend over                   -> color                      [optional]
 ```
 
-Steps 2–3 are **Pixel Sorted Transparency** (§5), the one optional expansion the renderer ever
-grows. Every surface type in the baseline writes depth, so the opaque pass needs no sub-ordering of
-any kind.
+The tile clears its own pixels, so there is no separate clear stage: a tile owns every pixel in its
+rect from clear to final color. Steps 3–4 are **Pixel Sorted Transparency** (§5), the one optional
+expansion the renderer ever grows. Every surface type in the baseline writes depth, so the opaque
+pass needs no sub-ordering of any kind.
 
 **Tile is the unit of parallelism, and one thread owns every pixel in its tile.** That ownership
 invariant is the load-bearing decision — it is what gives no framebuffer atomics, deterministic
@@ -703,6 +705,7 @@ No occlusion culling. It only attacks *geometry* throughput, and there is no evi
 | **MSAA / any antialiasing** | **Rejected** | Fights the pixel-art look and multiplies raster cost. Aliasing is the aesthetic. |
 | **Bilinear filtering** | **Rejected for textures** | Same reason. It is *magnification* that makes texels chunky, and bilinear is precisely what softens them. **The visibility map is the deliberate exception** (§4): Quake also paired nearest-sampled textures with a smoothly interpolated lightmap, and without it a coarse map reads as blocky shadows rather than soft ones. |
 | **Trilinear (blending between levels)** | **Rejected** | Redundant: dithered level selection (§3) already delivers the same expected result while keeping every pixel one raw texel. Trilinear would be a second sampling path with two texel fetches per pixel. |
+| **Separate full-screen clear job** | **Possible, not planned** | Could run alongside the front end, with only the tile job waiting on it. The tile clears its own rect instead (§3): one job fewer. |
 | **One-frame-behind pipelining** | **Deferred** | Real throughput win, but costs determinism and debuggability. Not before a measurement demands it. |
 | **GPU / compute-shader hybrid** | **Rejected** | Defeats the premise of the project. |
 | **8-bit indexed color pipeline** | **Rejected** | 32-bit chosen. Keeps real alpha blending available. |

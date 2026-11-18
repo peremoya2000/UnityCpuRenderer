@@ -74,11 +74,11 @@ public static class Rasterizer
         return triangleSetup;
     }
 
-    public static void DrawTriangle(Framebuffer framebuffer, TriangleSetup triangleSetup)
+    public static void DrawTriangle(Framebuffer framebuffer, TriangleSetup triangleSetup, int4 rect)
     {
-        for (int y = triangleSetup.Bounds.y; y <= triangleSetup.Bounds.w; ++y)
+        for (int y = rect.y; y <= rect.w; ++y)
         {
-            for (int x = triangleSetup.Bounds.x; x <= triangleSetup.Bounds.z; ++x)
+            for (int x = rect.x; x <= rect.z; ++x)
             {
                 int2 p = new int2((x << SUBPIXEL_BITS) + HALF_PIXEL, (y << SUBPIXEL_BITS) + HALF_PIXEL);
                 int e0 = EdgeFunction(triangleSetup.V1, triangleSetup.V2, p);

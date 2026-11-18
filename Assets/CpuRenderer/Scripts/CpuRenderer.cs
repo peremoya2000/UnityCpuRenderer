@@ -18,10 +18,9 @@ public class CpuRenderer : MonoBehaviour
         public int FirstClipVertex;
     }
 
-    private const int TILE_SIZE = 32;
+    public const int TILE_SIZE = 32;
     private const int CACHE_LINE_PADDING = 16;
 
-    private static readonly ProfilerMarker clearMarker = new ProfilerMarker("CpuRenderer.Clear");
     private static readonly ProfilerMarker gatherMarker = new ProfilerMarker("CpuRenderer.Gather");
     private static readonly ProfilerMarker worldToClipMarker = new ProfilerMarker("CpuRenderer.WorldToClip");
     private static readonly ProfilerMarker cullClipMarker = new ProfilerMarker("CpuRenderer.CullClip");
@@ -62,7 +61,7 @@ public class CpuRenderer : MonoBehaviour
         lastScreenSize = new Vector2Int(Screen.width, Screen.height);
     }
 
-    void Start()
+    private void Start()
     {
         paddedResolution.x = (int)(Mathf.Ceil(RenderResolution.x / TILE_SIZE) * TILE_SIZE + CACHE_LINE_PADDING);
         paddedResolution.y = (int)(Mathf.Ceil(RenderResolution.y / TILE_SIZE) * TILE_SIZE);
@@ -86,7 +85,6 @@ public class CpuRenderer : MonoBehaviour
         triangleSetups = new NativeList<TriangleSetup>(Allocator.Persistent);
         clippedTriangles = new NativeList<Geometry.ClippedTriangle>(Allocator.Persistent);
         depthBuffer = new NativeArray<float>(paddedResolution.x * paddedResolution.y, Allocator.Persistent);
-
         Debug.Assert(Camera != null, "Camera is not assigned.", this);
         Camera.enabled = false;
 
@@ -120,10 +118,6 @@ public class CpuRenderer : MonoBehaviour
             BufferWidth = paddedResolution.x,
             RenderSize = new int2((int)RenderResolution.x, (int)RenderResolution.y),
         };
-        using (clearMarker.Auto())
-        {
-            new ClearJob { Framebuffer = framebuffer, ClearColor = new Color32(32, 32, 32, 255) }.Run();
-        }
 
         //Unity uses forward = Z, but Matrix4x4.Perspective expects forward = -Z, so we need to flip the Z axis in the view matrix.
         Matrix4x4 view = Matrix4x4.Scale(new Vector3(1, 1, -1)) * Matrix4x4.TRS(Camera.transform.position, Camera.transform.rotation, Vector3.one).inverse;
@@ -173,6 +167,7 @@ public class CpuRenderer : MonoBehaviour
             new RasterJob
             {
                 Setups = triangleSetups.AsArray(),
+                ClearColor = new Color32(32, 32, 32, 255),
                 Framebuffer = framebuffer,
             }.Run();
         }

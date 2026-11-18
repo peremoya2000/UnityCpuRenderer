@@ -8,7 +8,7 @@ public class StageTimings : IDisposable
     private const int FRAME_WINDOW = 120;
     private const double NANOSECONDS_PER_MILLISECOND = 1e6;
 
-    private static readonly string[] stageNames = { "Clear", "Gather", "WorldToClip", "CullClip", "Setup", "Raster", "Apply" };
+    private static readonly string[] stageNames = { "Gather", "WorldToClip", "CullClip", "Setup", "Raster", "Apply" };
 
     private readonly ProfilerRecorder[] recorders = new ProfilerRecorder[stageNames.Length];
     private readonly StringBuilder builder = new StringBuilder();
